@@ -9,9 +9,9 @@ public class NPuzzleHeuristic {
      * nb: è un'euristica consistente!!*/
 	public static int manhattanDistance(NPuzzle problem) {
 		int h = 0;
-        for (int i = 0; i < problem.getLength(); i++) {
-            for (int j = 0; j < problem.getLength(); j++) {
-                int val = problem.getCell(i, j);
+        for (byte i = 0; i < problem.getLength(); i++) {
+            for (byte j = 0; j < problem.getLength(); j++) {
+            	int val = problem.getCell(i, j);
                 if (val <= 0) {
                     int length = problem.getLength();
                     val = length * length;
@@ -34,8 +34,8 @@ public class NPuzzleHeuristic {
      * nb: è un'euristica consistente!!*/
 	public static int outOfPlace(NPuzzle problem) {
         int h = 0;
-        for (int i = 0; i < problem.getLength(); i++) {
-            for (int j = 0; j < problem.getLength(); j++) {
+        for (byte i = 0; i < problem.getLength(); i++) {
+            for (byte j = 0; j < problem.getLength(); j++) {
                 if (i == problem.getLength() - 1 && j == problem.getLength() -1) {
                     if (problem.getCell(i, j) > 0) {
                         h++;

@@ -9,18 +9,18 @@ import java.util.*;
  * Il gioco è risolto quando tutte le celle sono ordinate e la cella vuota sta nell'ultima posizione.
  */
 public class NPuzzle {
-    private final int[][] table;
-    private final int emptyX;
-    private final int emptyY;
+    private final byte[][] table;
+    private final byte emptyX;
+    private final byte emptyY;
 
-    public static NPuzzle newInstance(int[][] table) {
+    public static NPuzzle newInstance(byte[][] table) {
         if (table.length < 1 || table[0].length != table.length) {
             throw new IllegalArgumentException("invalid table size");
         }
-        int emptyX = -1;
-        int emptyY = -1;
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
+        byte emptyX = -1;
+        byte emptyY = -1;
+        for (byte i = 0; i < table.length; i++) {
+            for (byte j = 0; j < table.length; j++) {
                 if (table[i][j] >= table.length * table.length) {
                     throw new IllegalArgumentException("invalid table: cell value too high");
                 }
@@ -44,7 +44,7 @@ public class NPuzzle {
      * @param y: colonna della cella vuota
      * si assume che la matrice rappresenti una configurazione valida
      * e che x e y abbiano valori corretti*/
-    public NPuzzle(int[][] t, int x, int y) {
+    public NPuzzle(byte[][] t, byte x, byte y) {
         table = t;
         emptyX = x;
         emptyY = y;
@@ -55,7 +55,7 @@ public class NPuzzle {
         return table.length;
     }
 
-    public int getCell(int row, int col) {
+    public byte getCell(byte row, byte col) {
         return table[row][col];
     }
 
@@ -68,8 +68,8 @@ public class NPuzzle {
         if (other.table.length != table.length) {
             return false;
         }
-        for (int i = 0; i < table.length; i++) {
-            for (int j = 0; j < table.length; j++) {
+        for (byte i = 0; i < table.length; i++) {
+            for (byte j = 0; j < table.length; j++) {
                 if (table[i][j] != other.table[i][j]) {
                     return false;
                 }
@@ -79,12 +79,12 @@ public class NPuzzle {
     }
     
     
-    public int getEmptyX() {
+    public byte getEmptyX() {
     	return emptyX;
     }
     
     
-    public int getEmptyY() {
+    public byte getEmptyY() {
     	return emptyY;
     }
     
@@ -97,7 +97,7 @@ public class NPuzzle {
     @Override
     public String toString() {
         String string = "";
-        for (int[] line : table) {
+        for (byte[] line : table) {
             string += Arrays.toString(line) + "\n";
         }
         return string;
