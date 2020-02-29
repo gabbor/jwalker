@@ -10,19 +10,20 @@ import epieffe.solver.problem.Problem;
 
 /** */
 class Searches {
+	
     private static final Random random = new Random();
 
-    static <T extends Problem> T steepestDescent(T p, Heuristic<T> h, int maxSides) {
+    static <T> T steepestDescent(Problem<T> problem, T config, Heuristic<T> h, int maxSides) {
     	T sol = null;
-    	T localBest = p;
-        int localBestH = h.eval(p);
+    	T localBest = config;
+        int localBestH = h.eval(config);
         int countSides = 0;
         while (sol == null) {
             int oldBestH = localBestH;
-            List<Move> moveList = localBest.getMoves();
+            List<Move<T>> moveList = problem.getMoves(localBest);
             List<T> bestMoveList = new ArrayList<>();
-            for (Move m : moveList) {
-                T newProblem = (T) m.config;
+            for (Move<T> m : moveList) {
+                T newProblem = m.config;
                 int newH = h.eval(newProblem);
                 if (newH <= localBestH) {
                     if (newH < localBestH) {
@@ -48,13 +49,4 @@ class Searches {
         return sol;
     }
 
-    private static boolean maybeTrue(int p) {
-        for (int i = 0; i < p; i++) {
-            boolean randBool = random.nextBoolean();
-            if (!randBool) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

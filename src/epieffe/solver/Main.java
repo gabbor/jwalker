@@ -11,7 +11,9 @@ import epieffe.solver.heuristic.NPuzzleHeuristic;
 import epieffe.solver.problem.Move;
 import epieffe.solver.problem.NPuzzle;
 import epieffe.solver.problem.NQueens;
+import epieffe.solver.problem.NQueensProblem;
 import epieffe.solver.problem.Problem;
+import epieffe.solver.problem.PuzzleProblem;
 
 /**
  * Created by user on 04/03/17.
@@ -27,10 +29,11 @@ public class Main {
         final Heuristic<NQueens> h = HeuristicNQueens::numThreats;
         final Search search = SearchFactory.steepestDescent(100);
 
-        NQueens prob = NQueens.newRandomInstance(100);
-        NQueens sol = search.start(prob, h);
+        Problem<NQueens> problem = new NQueensProblem();
+        NQueens config = NQueens.newRandomInstance(100);
+        NQueens sol = search.start(problem, config, h);
         System.out.println(sol);
-        System.out.println("is solved: " + sol.isSolved());
+        System.out.println("is solved: " + problem.isSolved(sol) );
         System.out.println("conflicts: " + h.eval(sol));
 
     }
@@ -38,29 +41,31 @@ public class Main {
     public static void nQueens() {
         final Heuristic<NQueens> h = HeuristicNQueens::numThreats;
 
-        final Visit aStar = VisitFactory.aStar(h);
-        final Visit bestFirst = VisitFactory.bestFirst(h);
+        final Visit aStar = VisitFactory.aStar();
+        final Visit bestFirst = VisitFactory.bestFirst();
         final Visit bfs = VisitFactory.bfs();
 
         final Visit visit = bestFirst;
 
-        Problem p = NQueens.newRandomInstance(40);
-        List<Move> moveList = visit.start(p);
+        Problem<NQueens> problem = new NQueensProblem();
+        NQueens config = NQueens.newRandomInstance(40);
+        List<Move<NQueens>> moveList = visit.start(problem, config, h);
         //moveList.forEach( s -> System.out.println(s.move) );
-        Problem sol = moveList.get(moveList.size() -1).config;
+        NQueens sol = moveList.get(moveList.size() -1).config;
         System.out.println(sol);
-        System.out.println("is solved: " + sol.isSolved());
+        System.out.println( "is solved: " + problem.isSolved(sol) );
     }
 
+    
     public static void nPuzzle () {
-
+    	
         final Heuristic<NPuzzle> manhattan = NPuzzleHeuristic::manhattanDistance;
         final Heuristic<NPuzzle> outOfPlace = NPuzzleHeuristic::outOfPlace;
 
         Heuristic<NPuzzle> h = manhattan;
 
-        final Visit aStar = VisitFactory.aStar(h, 1);
-        final Visit bestFirst = VisitFactory.bestFirst(h);
+        final Visit aStar = VisitFactory.aStar(1);
+        final Visit bestFirst = VisitFactory.bestFirst();
         final Visit bfs = VisitFactory.bfs();
 
         Visit visit = bestFirst;
@@ -83,8 +88,9 @@ public class Main {
                 { 4,  9,  5,  2},
                 { 1, 15, 11, -1}
         };
-        Problem p = NPuzzle.newInstance(t1);
-        List<Move> moveList = visit.start(p);
+        Problem<NPuzzle> problem = new PuzzleProblem();
+        NPuzzle config = NPuzzle.newInstance(t1);
+        List<Move<NPuzzle>> moveList = visit.start(problem, config, h);
         moveList.forEach( s -> System.out.println(s.move) );
     }
 }

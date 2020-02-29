@@ -1,29 +1,64 @@
 package epieffe.solver.algorithm;
 
+import java.util.List;
+
 import epieffe.solver.heuristic.Heuristic;
+import epieffe.solver.problem.Move;
+import epieffe.solver.problem.Problem;
 
 /**
  * Created by user on 05/03/17.
  */
 public class VisitFactory {
 
+	
     public static Visit bfs() {
-        return (p) -> Visits.BFS(p);
+    	return new Visit() {
+			@Override
+			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Visits.BFS(problem, config);
+			}
+    		
+    	};
     }
 
+    
     public static Visit dijkstra() {
-        return (p) -> Visits.dijkstra(p);
+    	return new Visit() {
+			@Override
+			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Visits.dijkstra(problem, config);
+			}
+    	};
     }
 
-    public static Visit aStar(Heuristic h) {
-        return (p) -> Visits.aStar(p, h);
+    
+    public static Visit aStar() {
+    	return new Visit() {
+			@Override
+			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Visits.aStar(problem, config, h);
+			}
+    	};
     }
 
-    public static Visit aStar(Heuristic h, int approx) {
-        return (p) -> Visits.aStar(p, h, approx);
+    
+    public static Visit aStar(int approx) {
+    	return new Visit() {
+			@Override
+			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Visits.aStar(problem, config, h, approx);
+			}
+    	};
     }
 
-    public static Visit bestFirst(Heuristic h) {
-        return (p) -> Visits.bestFirstGreedy(p, h);
+    
+    public static Visit bestFirst() {
+    	return new Visit() {
+			@Override
+			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Visits.bestFirstGreedy(problem, config, h);
+			}
+    	};
     }
 }

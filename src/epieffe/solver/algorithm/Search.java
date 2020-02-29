@@ -10,5 +10,5 @@ public interface Search {
 	
     /**esegue la ricerca e ritorna la migliore soluzione trovata.
      * nb: NON è garantita la correttezza della soluzione!!!*/
-	<T extends Problem> T start(T p, Heuristic<T> h);
+	<T> T start(Problem<T> problem, T config, Heuristic<T> h);
 }

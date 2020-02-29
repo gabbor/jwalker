@@ -1,15 +1,12 @@
 package epieffe.solver.heuristic;
 
-import epieffe.solver.problem.Problem;
-
 /**
  * Created by user on 03/03/17.
  */
-public interface Heuristic<T extends Problem> {
+public interface Heuristic<T> {
 	
-    /**Valuta quanto l'istanza p del problema è vicina ad una soluzione.
+    /**Valuta quanto la configurazione del problema è vicina ad una soluzione.
      * più il valore di ritorno è piccolo più è vicino ad una soluzione.
-     * se l'istanza del problema è già una soluzione ritorna 0
-     * @throws ClassCastException se il problema non è del tipo giusto*/
-    int eval(T problem);
+     * se la configurazione del problema è già una soluzione ritorna 0 */
+    int eval(T config);
 }

@@ -12,8 +12,8 @@ public class SearchFactory {
     	return new Search() {
 
 			@Override
-			public <T extends Problem> T start(T p, Heuristic<T> h) {
-				return Searches.steepestDescent(p, h, max);
+			public <T> T start(Problem<T> problem, T config, Heuristic<T> h) {
+				return Searches.steepestDescent(problem, config, h, max);
 			}		
     	};
     }

@@ -1,8 +1,6 @@
 package epieffe.solver.problem;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,13 +10,13 @@ import java.util.Random;
  * nb: Siccome due regine non potranno mai stare sulla stessa colonna
  * possiamo fissare ogni regina su una colonna per ridurre il numero delle possibili configurazioni!
  */
-public class NQueens implements Problem {
+public class NQueens  {
     private static final Random random = new Random();
 
     /**segna la posizione della regina su ogni colonna*/
     private final int[] posArray;
 
-    private NQueens(int[] pa) {
+    public NQueens(int[] pa) {
         posArray = pa;
     }
 
@@ -41,32 +39,6 @@ public class NQueens implements Problem {
         return new NQueens(pa);
     }
 
-    /**Ritorna la lista delle mosse possibili a partire dalla configurazione attuale.
-     * Una mossa consiste nello spostare una sola regina lungo una sola colonna.*/
-    @Override
-    public List<Move> getMoves() {
-        int nMoves = (posArray.length - 1) * posArray.length;
-        List<Move> moveList = new ArrayList<>(nMoves);
-        for (int i = 0; i < posArray.length; i++) {
-            for(int v = 0; v < posArray.length; v++) {
-                if (v != posArray[i]) {
-                    int[] newPosArray = new int[posArray.length];
-                    for (int j = 0; j < posArray.length; j++) {
-                        if (j == i) {
-                            newPosArray[j] = v;
-                        } else {
-                            newPosArray[j] = posArray[j];
-                        }
-                    }
-                    Problem newConfig = new NQueens(newPosArray);
-                    String moveString = Integer.toString(i) + " -> " + Integer.toString(newPosArray[i]);
-                    Move move = new Move(moveString, 1, newConfig);
-                    moveList.add(move);
-                }
-            }
-        }
-        return  moveList;
-    }
 
     /**Ritorna il numero di minaccie in questa configurazione.
      * nb: si tratta di un'euristica consistente!*/
@@ -85,21 +57,6 @@ public class NQueens implements Problem {
         return h;
     }
 
-    /**Ritorna true se nessuna delle regine nella scacchiera è minacciata*/
-    @Override
-    public boolean isSolved() {
-        for (int col = 0; col < posArray.length; col++) {
-            int colVal = posArray[col];
-            for (int i = col + 1; i < posArray.length; i++) {
-                int val = posArray[i];
-                int dist = i - col;
-                if ( val == colVal || val == colVal - dist || val == colVal + dist) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     /**Ritorna la posizione della regina nella colonna col*/
     public int getPos(int col) {
