@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PuzzleProblem implements Problem<NPuzzle> {
-
 	
-	/** Restituisce una lista contenente tutte le configurazioni ottenibili
-     * facendo una singola mossa a partire dalla configurazione attuale*/
+	/**
+     * Restituisce una lista contenente tutte le configurazioni ottenibili
+     * facendo una singola mossa a partire dalla configurazione attuale.
+     * */
 	@Override
 	public List<Move<NPuzzle>> getMoves(NPuzzle config) {
 		byte emptyY = config.getEmptyY();
@@ -52,7 +53,6 @@ public class PuzzleProblem implements Problem<NPuzzle> {
         return moveList;
 	}
 
-	
 	@Override
 	public boolean isSolved(NPuzzle config) {
 		int length = config.getLength();
@@ -71,7 +71,6 @@ public class PuzzleProblem implements Problem<NPuzzle> {
         }
         return true;
 	}
-	
 	
 	private byte[][] copyTable(NPuzzle config) {
 		int length = config.getLength();

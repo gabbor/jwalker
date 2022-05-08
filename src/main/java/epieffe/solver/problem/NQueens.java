@@ -11,9 +11,12 @@ import java.util.Random;
  * possiamo fissare ogni regina su una colonna per ridurre il numero delle possibili configurazioni!
  */
 public class NQueens  {
+
     private static final Random random = new Random();
 
-    /**segna la posizione della regina su ogni colonna*/
+    /**
+     * Segna la posizione della regina su ogni colonna.
+     * */
     private final int[] posArray;
 
     public NQueens(int[] pa) {
@@ -29,7 +32,9 @@ public class NQueens  {
         return new NQueens(pa);
     }
 
-    /**Ritorna una nuova istanza casuale su una scacchiera di larghezza l*/
+    /**
+     * Ritorna una nuova istanza casuale su una scacchiera di larghezza l.
+     * */
     public static NQueens newRandomInstance(int l) {
         int[] pa = new int[l];
         for (int i = 0; i < l; i++) {
@@ -39,9 +44,10 @@ public class NQueens  {
         return new NQueens(pa);
     }
 
-
-    /**Ritorna il numero di minaccie in questa configurazione.
-     * nb: si tratta di un'euristica consistente!*/
+    /**
+     * Ritorna il numero di minaccie in questa configurazione.
+     * nb: si tratta di un'euristica consistente!
+     * */
     public int nThreats() {
         int h = 0;
         for (int col = 0; col < posArray.length; col++) {
@@ -57,13 +63,16 @@ public class NQueens  {
         return h;
     }
 
-
-    /**Ritorna la posizione della regina nella colonna col*/
+    /**
+     * Ritorna la posizione della regina nella colonna col.
+     * */
     public int getPos(int col) {
         return posArray[col];
     }
 
-    /**Ritorna la larghezza della scacchiera*/
+    /**
+     * Ritorna la larghezza della scacchiera.
+     * */
     public int getLength() {
         return posArray.length;
     }
@@ -72,6 +81,4 @@ public class NQueens  {
     public String toString() {
         return Arrays.toString(posArray);
     }
-
-
 }

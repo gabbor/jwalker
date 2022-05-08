@@ -5,7 +5,6 @@ import java.util.List;
 
 public class NQueensProblem implements Problem<NQueens> {
 
-	
 	@Override
 	public List<Move<NQueens>> getMoves(NQueens config) {
 		int length = config.getLength();
@@ -32,8 +31,9 @@ public class NQueensProblem implements Problem<NQueens> {
         return  moveList;
 	}
 
-	
-	/**Ritorna true se nessuna delle regine nella scacchiera è minacciata*/
+	/**
+     * Ritorna true se nessuna delle regine nella scacchiera è minacciata
+     * */
 	@Override
 	public boolean isSolved(NQueens config) {
 		int length = config.getLength();

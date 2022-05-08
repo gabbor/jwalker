@@ -1,5 +1,6 @@
 package epieffe.solver.util;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -9,6 +10,7 @@ import java.util.Queue;
  * Created by user on 05/03/17.
  */
 public class MinHeap<T> {
+
     private class Pair {
         final int priority;
         final T value;
@@ -17,13 +19,16 @@ public class MinHeap<T> {
             value = v;
         }
     }
+
     private Map<T, Pair> map = new HashMap<>();
     private Queue<Pair> pQueue = new PriorityQueue<>(
-            (o1, o2) -> Integer.compare(o1.priority, o2.priority)
+            Comparator.comparingInt((Pair o) -> o.priority)
     );
 
-    /**Inserisce il valore v nella coda con priorità p.
-     * se v era già presente nella coda aggiorna la sua priorità. */
+    /**
+     * Inserisce il valore v nella coda con priorità p.
+     * se v era già presente nella coda aggiorna la sua priorità.
+     * */
     public void insertOrUpdate(T v, int p) {
         if ( map.containsKey(v) ) {
             Pair oldPair = map.get(v);
@@ -37,18 +42,24 @@ public class MinHeap<T> {
         pQueue.add(pair);
     }
 
-    /**Ritorna l'elemento con priorità minima senza rimuoverlo*/
+    /**
+     * Ritorna l'elemento con priorità minima senza rimuoverlo.
+     * */
     public T minimum() {
         return pQueue.peek().value;
     }
 
-    /**Ritorna e rimuove l'elemento con priorità minima*/
+    /**
+     * Ritorna e rimuove l'elemento con priorità minima.
+     * */
     public T extractMin() {
         return pQueue.poll().value;
     }
 
-    /**Cambia la priorità di v al valore p, se p è >= di quella attuale.
-     * @return true se p >= della vecchia priorità di v*/
+    /**
+     * Cambia la priorità di v al valore p, se p è >= di quella attuale.
+     * @return true se p >= della vecchia priorità di v.
+     * */
     public boolean decreaseKey(T v, int p) {
         Pair oldPair = map.get(v);
         if (oldPair == null || p < oldPair.priority ) {

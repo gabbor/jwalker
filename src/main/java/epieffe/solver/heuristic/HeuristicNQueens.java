@@ -4,8 +4,10 @@ import epieffe.solver.problem.NQueens;
 
 public class HeuristicNQueens {
 	
-	/**Ritorna il numero di minaccie in questa configurazione.
-     * nb: si tratta di un'euristica consistente!*/
+	/**
+     * Ritorna il numero di minaccie in questa configurazione.
+     * nb: si tratta di un'euristica consistente!
+     * */
     public static int numThreats(NQueens problem) {
         int h = 0;
         for (int col = 0; col < problem.getLength(); col++) {

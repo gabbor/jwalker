@@ -5,8 +5,10 @@ package epieffe.solver.heuristic;
  */
 public interface Heuristic<T> {
 	
-    /**Valuta quanto la configurazione del problema è vicina ad una soluzione.
+    /**
+     * Valuta quanto la configurazione del problema è vicina ad una soluzione.
      * più il valore di ritorno è piccolo più è vicino ad una soluzione.
-     * se la configurazione del problema è già una soluzione ritorna 0 */
+     * se la configurazione del problema è già una soluzione ritorna 0.
+     * */
     int eval(T config);
 }

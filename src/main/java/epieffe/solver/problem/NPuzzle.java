@@ -39,17 +39,18 @@ public class NPuzzle {
         return new NPuzzle(table, emptyX, emptyY);
     }
 
-    /**@param t: matrice che rappresenta la configurazione
-     * @param x: riga della cella vuota
-     * @param y: colonna della cella vuota
+    /**
+     * @param t: matrice che rappresenta la configurazione.
+     * @param x: riga della cella vuota.
+     * @param y: colonna della cella vuota.
      * si assume che la matrice rappresenti una configurazione valida
-     * e che x e y abbiano valori corretti*/
+     * e che x e y abbiano valori corretti.
+     * */
     public NPuzzle(byte[][] t, byte x, byte y) {
         table = t;
         emptyX = x;
         emptyY = y;
     }
-
 
     public int getLength() {
         return table.length;
@@ -78,16 +79,13 @@ public class NPuzzle {
         return true;
     }
     
-    
     public byte getEmptyX() {
     	return emptyX;
     }
-    
-    
+
     public byte getEmptyY() {
     	return emptyY;
     }
-    
 
     @Override
     public int hashCode() {
@@ -96,10 +94,12 @@ public class NPuzzle {
 
     @Override
     public String toString() {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for (byte[] line : table) {
-            string += Arrays.toString(line) + "\n";
+            string.append(Arrays.toString(line))
+                    .append("\n");
         }
-        return string;
+        string.deleteCharAt(string.length() - 1);
+        return string.toString();
     }
 }

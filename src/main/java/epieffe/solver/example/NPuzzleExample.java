@@ -32,7 +32,7 @@ public class NPuzzleExample {
             { 1, 15, 11, -1}
     };
 
-    public static void main (String... args) {
+    public static void main(String... args) {
         NPuzzle config = NPuzzle.newInstance(EXAMPLE_1);
         solveWithBestFirstManhattan(config);
     }

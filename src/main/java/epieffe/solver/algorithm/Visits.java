@@ -36,8 +36,7 @@ class Visits {
         return bestFirst(problem, config, null, 1, false);
     }
 
-    
-    static <T> List<Move<T>> BFS(Problem<T> problem, T config) {
+    static <T> List<Move<T>> bfs(Problem<T> problem, T config) {
         Move<T> sol = null;
         Set<T> visitedSet = new HashSet<>();
         Queue<Move<T>> frontierQueue = new LinkedList<>();
@@ -65,12 +64,13 @@ class Visits {
         return buildPath(parentMap, sol);
     }
 
-    
-    /**Ricerca best first.
-     * @param p Problem su cui eseguire la ricerca
+    /**
+     * Ricerca best first.
+     * @param problem Problem su cui eseguire la ricerca
      * @param h euristica del problema, può essere null
      * @param hmul costante per cui verranno moltiplicati i valori di h
-     * @param isGreedy se è false considera anche il percorso fatto finora nell'espansione della frontiera*/
+     * @param isGreedy se è false considera anche il percorso fatto finora nell'espansione della frontiera
+     * */
     private static <T> List<Move<T>> bestFirst(
     		Problem<T> problem,
     		T config,
@@ -116,7 +116,6 @@ class Visits {
         return buildPath(parentMap, sol);
     }
 
-    
     private static <T> List<Move<T>> buildPath(Map<Move<T>, Move<T>> parentMap, Move<T> sol) {
         List<Move<T>> path = null;
         if (sol != null) {

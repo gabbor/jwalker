@@ -4,9 +4,10 @@ import epieffe.solver.problem.NPuzzle;
 
 public class NPuzzleHeuristic {
 
-	
-	/**Ritorna la somma delle distanze manhattan di ogni cella
-     * nb: è un'euristica consistente!!*/
+	/**
+     * Ritorna la somma delle distanze manhattan di ogni cella
+     * nb: è un'euristica consistente!!
+     * */
 	public static int manhattanDistance(NPuzzle problem) {
 		int h = 0;
         for (byte i = 0; i < problem.getLength(); i++) {
@@ -28,10 +29,11 @@ public class NPuzzleHeuristic {
         }
         return h;
 	}
-	
-	
-	/**Ritorna il numero di celle fuori posto.
-     * nb: è un'euristica consistente!!*/
+
+	/**
+     * Ritorna il numero di celle fuori posto.
+     * nb: è un'euristica consistente!!
+     * */
 	public static int outOfPlace(NPuzzle problem) {
         int h = 0;
         for (byte i = 0; i < problem.getLength(); i++) {
