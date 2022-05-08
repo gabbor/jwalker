@@ -23,7 +23,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>epieffe.solver.example.NPuzzleExample</mainClass>
+                            <mainClass>epieffe.solver.example.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
