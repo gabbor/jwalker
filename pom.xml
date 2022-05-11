@@ -32,4 +32,9 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <developerConnection>scm:git:http://github.com/Ippolo/solver</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 </project>
