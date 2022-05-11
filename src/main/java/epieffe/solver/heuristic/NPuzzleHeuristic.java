@@ -1,6 +1,6 @@
 package epieffe.solver.heuristic;
 
-import epieffe.solver.problem.NPuzzle;
+import epieffe.solver.problem.config.NPuzzle;
 
 public class NPuzzleHeuristic {
 

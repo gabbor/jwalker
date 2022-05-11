@@ -1,8 +1,8 @@
 package epieffe.solver.heuristic;
 
-import epieffe.solver.problem.NQueens;
+import epieffe.solver.problem.config.NQueens;
 
-public class HeuristicNQueens {
+public class NQueensHeuristic {
 	
 	/**
      * Ritorna il numero di minaccie in questa configurazione.

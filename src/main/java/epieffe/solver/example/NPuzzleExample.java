@@ -5,9 +5,9 @@ import epieffe.solver.algorithm.VisitFactory;
 import epieffe.solver.heuristic.Heuristic;
 import epieffe.solver.heuristic.NPuzzleHeuristic;
 import epieffe.solver.problem.Move;
-import epieffe.solver.problem.NPuzzle;
+import epieffe.solver.problem.config.NPuzzle;
 import epieffe.solver.problem.Problem;
-import epieffe.solver.problem.PuzzleProblem;
+import epieffe.solver.problem.NPuzzleProblem;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public class NPuzzleExample {
     }
 
     private static void solveAndPrint(NPuzzle config, Visit visit, Heuristic<NPuzzle> h) {
-        Problem<NPuzzle> problem = new PuzzleProblem();
+        Problem<NPuzzle> problem = new NPuzzleProblem();
         List<Move<NPuzzle>> moveList = visit.start(problem, config, h);
         moveList.forEach(s -> System.out.println(s.move));
     }

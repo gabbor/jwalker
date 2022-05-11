@@ -3,8 +3,8 @@ package epieffe.solver.example;
 import epieffe.solver.algorithm.VisitFactory;
 import epieffe.solver.heuristic.NPuzzleHeuristic;
 import epieffe.solver.problem.Move;
-import epieffe.solver.problem.NPuzzle;
-import epieffe.solver.problem.PuzzleProblem;
+import epieffe.solver.problem.config.NPuzzle;
+import epieffe.solver.problem.NPuzzleProblem;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,7 +27,7 @@ public class NPuzzleFromFileExample {
             System.out.println(config);
             System.out.println("--------------");
             List<Move<NPuzzle>> moveList = VisitFactory.bestFirst()
-                    .start(new PuzzleProblem(), config, NPuzzleHeuristic::manhattanDistance);
+                    .start(new NPuzzleProblem(), config, NPuzzleHeuristic::manhattanDistance);
             System.out.println("Move list:");
             moveList.forEach(s -> System.out.println(s.move));
         } catch(FileNotFoundException e) {

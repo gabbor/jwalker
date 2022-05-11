@@ -1,5 +1,7 @@
 package epieffe.solver.problem;
 
+import epieffe.solver.problem.config.NQueens;
+
 import java.util.ArrayList;
 import java.util.List;
 

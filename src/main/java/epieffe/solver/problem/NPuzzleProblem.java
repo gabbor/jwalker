@@ -1,9 +1,11 @@
 package epieffe.solver.problem;
 
+import epieffe.solver.problem.config.NPuzzle;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PuzzleProblem implements Problem<NPuzzle> {
+public class NPuzzleProblem implements Problem<NPuzzle> {
 	
 	/**
      * Restituisce una lista contenente tutte le configurazioni ottenibili

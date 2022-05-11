@@ -1,4 +1,4 @@
-package epieffe.solver.problem;
+package epieffe.solver.problem.config;
 
 import java.util.*;
 
