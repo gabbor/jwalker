@@ -16,20 +16,20 @@ public class NPuzzleExample {
     private static final byte[][] EXAMPLE_1 = {
             {7,  1,  2},
             {4,  8,  3},
-            {5,  -1, 6}
+            {5, -1,  6}
     };
 
     private static final byte[][] EXAMPLE_2 = {// easy
-            { 2,  3,  4,  8},
-            { 6, 12, 11, 15},
-            { 1,  7, 10, 14},
-            { 9,  5, 13, -1}
+            {2,  3,  4,  8},
+            {6, 12, 11, 15},
+            {1,  7, 10, 14},
+            {9,  5, 13, -1}
     };
     private static final byte[][] EXAMPLE_3 = {// hard
-            { 8, 12, 10,  7},
-            { 3, 14,  6, 13},
-            { 4,  9,  5,  2},
-            { 1, 15, 11, -1}
+            {8, 12, 10,  7},
+            {3, 14,  6, 13},
+            {4,  9,  5,  2},
+            {1, 15, 11, -1}
     };
 
     public static void main(String... args) {

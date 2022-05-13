@@ -1,11 +1,11 @@
 package epieffe.solver.problem;
 
 public class Move<T> {
-	
+
     public final String move;
-    
+
     public final int cost;
-    
+
     public final T config;
 
     public Move(String move, int cost, T config) {

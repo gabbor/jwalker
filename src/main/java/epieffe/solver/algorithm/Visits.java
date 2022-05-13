@@ -20,7 +20,7 @@ import epieffe.solver.util.MinHeap;
  */
 class Visits {
 
-    static <T>  List<Move<T>> bestFirstGreedy(Problem<T> problem, T config, Heuristic<T> h) {
+    static <T> List<Move<T>> bestFirstGreedy(Problem<T> problem, T config, Heuristic<T> h) {
         return bestFirst(problem, config, h, 1, true);
     }
 
@@ -28,7 +28,7 @@ class Visits {
         return aStar(problem, config, h, 1);
     }
 
-    static <T>  List<Move<T>> aStar(Problem<T> problem, T config, Heuristic<T> h, int approx) {
+    static <T> List<Move<T>> aStar(Problem<T> problem, T config, Heuristic<T> h, int approx) {
         return bestFirst(problem, config, h, approx, false);
     }
 
@@ -48,11 +48,11 @@ class Visits {
         boolean exitLoop = false;
         while (!frontierQueue.isEmpty() && !exitLoop) {
             Move<T> current = frontierQueue.poll();
-            if ( problem.isSolved(current.config) ) {
+            if (problem.isSolved(current.config)) {
                 sol = current;
                 exitLoop = true;
             } else {
-                for (Move<T> move : problem.getMoves(current.config) ) {
+                for (Move<T> move : problem.getMoves(current.config)) {
                     if (!visitedSet.contains(move.config)) {
                         visitedSet.add(move.config);
                         parentMap.put(move, current);
@@ -66,18 +66,18 @@ class Visits {
 
     /**
      * Ricerca best first.
-     * @param problem Problem su cui eseguire la ricerca
-     * @param h euristica del problema, può essere null
-     * @param hmul costante per cui verranno moltiplicati i valori di h
+     *
+     * @param problem  Problem su cui eseguire la ricerca
+     * @param h        euristica del problema, può essere null
+     * @param hmul     costante per cui verranno moltiplicati i valori di h
      * @param isGreedy se è false considera anche il percorso fatto finora nell'espansione della frontiera
-     * */
+     */
     private static <T> List<Move<T>> bestFirst(
-    		Problem<T> problem,
-    		T config,
-    		Heuristic<T> h,
-    		int hmul,
-    		boolean isGreedy)
-    {
+            Problem<T> problem,
+            T config,
+            Heuristic<T> h,
+            int hmul,
+            boolean isGreedy) {
         if (h == null) {
             if (isGreedy) {
                 throw new IllegalArgumentException("can't be greedy without heuristic");
@@ -94,17 +94,17 @@ class Visits {
         frontier.insertOrUpdate(startMove, h.eval(config) * hmul);
         while (!frontier.isEmpty() && sol == null) {
             Move<T> current = frontier.extractMin();
-            if ( problem.isSolved(current.config) ) {
+            if (problem.isSolved(current.config)) {
                 sol = current;
             } else {
                 int currentDist = distMap.get(current.config);
-                for ( Move<T> move : problem.getMoves(current.config) ) {
+                for (Move<T> move : problem.getMoves(current.config)) {
                     Integer dist = distMap.get(move.config);
                     int newDist = currentDist + move.cost;
                     if (dist == null || dist > newDist) {
                         distMap.put(move.config, newDist);
                         parentMap.put(move, current);
-                        int priority = h.eval((T)move.config) * hmul;
+                        int priority = h.eval(move.config) * hmul;
                         if (!isGreedy) {
                             priority += newDist;
                         }

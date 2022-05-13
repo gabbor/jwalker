@@ -14,6 +14,7 @@ public class MinHeap<T> {
     private class Pair {
         final int priority;
         final T value;
+
         Pair(T v, int p) {
             priority = p;
             value = v;
@@ -28,9 +29,9 @@ public class MinHeap<T> {
     /**
      * Inserisce il valore v nella coda con priorità p.
      * se v era già presente nella coda aggiorna la sua priorità.
-     * */
+     */
     public void insertOrUpdate(T v, int p) {
-        if ( map.containsKey(v) ) {
+        if (map.containsKey(v)) {
             Pair oldPair = map.get(v);
             boolean error = !pQueue.remove(oldPair);
             if (error) {
@@ -44,25 +45,26 @@ public class MinHeap<T> {
 
     /**
      * Ritorna l'elemento con priorità minima senza rimuoverlo.
-     * */
+     */
     public T minimum() {
         return pQueue.peek().value;
     }
 
     /**
      * Ritorna e rimuove l'elemento con priorità minima.
-     * */
+     */
     public T extractMin() {
         return pQueue.poll().value;
     }
 
     /**
      * Cambia la priorità di v al valore p, se p è >= di quella attuale.
+     *
      * @return true se p >= della vecchia priorità di v.
-     * */
+     */
     public boolean decreaseKey(T v, int p) {
         Pair oldPair = map.get(v);
-        if (oldPair == null || p < oldPair.priority ) {
+        if (oldPair == null || p < oldPair.priority) {
             return false;
         }
         insertOrUpdate(v, p);

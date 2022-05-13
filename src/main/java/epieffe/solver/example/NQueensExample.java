@@ -51,7 +51,7 @@ public class NQueensExample {
         Problem<NQueens> problem = new NQueensProblem();
         List<Move<NQueens>> moveList = visit.start(problem, config, h);
         // moveList.forEach(s -> System.out.println(s.move));
-        NQueens sol = moveList.get(moveList.size() -1).config;
+        NQueens sol = moveList.get(moveList.size() - 1).config;
         System.out.println(sol);
         System.out.println("is solved: " + problem.isSolved(sol));
     }

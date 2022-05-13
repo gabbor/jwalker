@@ -30,7 +30,7 @@ public class NPuzzleFromFileExample {
                     .start(new NPuzzleProblem(), config, NPuzzleHeuristic::manhattanDistance);
             System.out.println("Move list:");
             moveList.forEach(s -> System.out.println(s.move));
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("Invalid file path");
         } catch (IOException e) {
             e.printStackTrace();

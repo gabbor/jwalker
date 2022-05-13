@@ -43,9 +43,9 @@ public class NPuzzle {
      * @param t: matrice che rappresenta la configurazione.
      * @param x: riga della cella vuota.
      * @param y: colonna della cella vuota.
-     * si assume che la matrice rappresenti una configurazione valida
-     * e che x e y abbiano valori corretti.
-     * */
+     *           si assume che la matrice rappresenti una configurazione valida
+     *           e che x e y abbiano valori corretti.
+     */
     public NPuzzle(byte[][] t, byte x, byte y) {
         table = t;
         emptyX = x;
@@ -65,7 +65,7 @@ public class NPuzzle {
         if (!(o instanceof NPuzzle)) {
             return false;
         }
-        NPuzzle other = (NPuzzle)o;
+        NPuzzle other = (NPuzzle) o;
         if (other.table.length != table.length) {
             return false;
         }
@@ -78,13 +78,13 @@ public class NPuzzle {
         }
         return true;
     }
-    
+
     public byte getEmptyX() {
-    	return emptyX;
+        return emptyX;
     }
 
     public byte getEmptyY() {
-    	return emptyY;
+        return emptyY;
     }
 
     @Override

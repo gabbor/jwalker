@@ -8,14 +8,13 @@ import epieffe.solver.heuristic.Heuristic;
 import epieffe.solver.problem.Move;
 import epieffe.solver.problem.Problem;
 
-/** */
 class Searches {
-	
+
     private static final Random random = new Random();
 
     static <T> T steepestDescent(Problem<T> problem, T config, Heuristic<T> h, int maxSides) {
-    	T sol = null;
-    	T localBest = config;
+        T sol = null;
+        T localBest = config;
         int localBestH = h.eval(config);
         int countSides = 0;
         while (sol == null) {
@@ -33,8 +32,8 @@ class Searches {
                     bestMoveList.add(newProblem);
                 }
             }
-            if ( !bestMoveList.isEmpty() ) {
-                int randomIndex = random.nextInt( bestMoveList.size() );
+            if (!bestMoveList.isEmpty()) {
+                int randomIndex = random.nextInt(bestMoveList.size());
                 localBest = bestMoveList.get(randomIndex);
                 if (localBestH == oldBestH) {
                     countSides++;
@@ -48,5 +47,4 @@ class Searches {
         }
         return sol;
     }
-
 }

@@ -10,13 +10,13 @@ import java.util.Random;
  * nb: Siccome due regine non potranno mai stare sulla stessa colonna
  * possiamo fissare ogni regina su una colonna per ridurre il numero delle possibili configurazioni!
  */
-public class NQueens  {
+public class NQueens {
 
     private static final Random random = new Random();
 
     /**
      * Segna la posizione della regina su ogni colonna.
-     * */
+     */
     private final int[] posArray;
 
     public NQueens(int[] pa) {
@@ -34,7 +34,7 @@ public class NQueens  {
 
     /**
      * Ritorna una nuova istanza casuale su una scacchiera di larghezza l.
-     * */
+     */
     public static NQueens newRandomInstance(int l) {
         int[] pa = new int[l];
         for (int i = 0; i < l; i++) {
@@ -47,7 +47,7 @@ public class NQueens  {
     /**
      * Ritorna il numero di minaccie in questa configurazione.
      * nb: si tratta di un'euristica consistente!
-     * */
+     */
     public int nThreats() {
         int h = 0;
         for (int col = 0; col < posArray.length; col++) {
@@ -55,7 +55,7 @@ public class NQueens  {
             for (int i = col + 1; i < posArray.length; i++) {
                 int val = posArray[i];
                 int dist = i - col;
-                if ( val == colVal || val == colVal - dist || val == colVal + dist) {
+                if (val == colVal || val == colVal - dist || val == colVal + dist) {
                     h++;
                 }
             }
@@ -65,14 +65,14 @@ public class NQueens  {
 
     /**
      * Ritorna la posizione della regina nella colonna col.
-     * */
+     */
     public int getPos(int col) {
         return posArray[col];
     }
 
     /**
      * Ritorna la larghezza della scacchiera.
-     * */
+     */
     public int getLength() {
         return posArray.length;
     }

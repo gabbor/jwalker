@@ -11,38 +11,38 @@ import epieffe.solver.problem.Problem;
  */
 public class VisitFactory {
 
-	public static Visit aStar() {
-		return Visits::aStar;
-	}
+    public static Visit aStar() {
+        return Visits::aStar;
+    }
 
-	public static Visit bestFirst() {
-		return Visits::bestFirstGreedy;
-	}
-	
+    public static Visit bestFirst() {
+        return Visits::bestFirstGreedy;
+    }
+
     public static Visit bfs() {
-    	return new Visit() {
-			@Override
-			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
-				return Visits.bfs(problem, config);
-			}
-    	};
+        return new Visit() {
+            @Override
+            public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+                return Visits.bfs(problem, config);
+            }
+        };
     }
 
     public static Visit dijkstra() {
-    	return new Visit() {
-			@Override
-			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
-				return Visits.dijkstra(problem, config);
-			}
-    	};
+        return new Visit() {
+            @Override
+            public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+                return Visits.dijkstra(problem, config);
+            }
+        };
     }
 
     public static Visit aStar(int approx) {
-    	return new Visit() {
-			@Override
-			public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
-				return Visits.aStar(problem, config, h, approx);
-			}
-    	};
+        return new Visit() {
+            @Override
+            public <T> List<Move<T>> start(Problem<T> problem, T config, Heuristic<T> h) {
+                return Visits.aStar(problem, config, h, approx);
+            }
+        };
     }
 }
