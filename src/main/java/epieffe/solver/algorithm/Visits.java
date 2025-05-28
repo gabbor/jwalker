@@ -1,6 +1,7 @@
 package epieffe.solver.algorithm;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.Stack;
 import epieffe.solver.heuristic.Heuristic;
 import epieffe.solver.problem.Move;
 import epieffe.solver.problem.Problem;
+import epieffe.solver.util.FibonacciHeap;
 import epieffe.solver.util.MinHeap;
 
 /**
@@ -62,6 +64,67 @@ class Visits {
             }
         }
         return buildPath(parentMap, sol);
+    }
+
+    public static <T> List<Move<T>> newAStar(Problem<T> problem, T startConfig, Heuristic<T> heuristic, int hmul) {
+        FibonacciHeap<Integer, T> openSet = new FibonacciHeap<>();
+        Map<T, Node<T>> nodes = new HashMap<>();
+        Map<T, FibonacciHeap.Node<Integer, T>> handleMap = new HashMap<>();
+        int h = heuristic.eval(startConfig) * hmul;
+        Node<T> startNode = new Node<>(startConfig, null, null, 0, h);
+        nodes.put(startConfig, startNode);
+        handleMap.put(startConfig, openSet.insert(h, startConfig));
+
+        while (!openSet.isEmpty()) {
+            T currentConfig = openSet.deleteMin().getValue();
+            Node<T> currentNode = nodes.get(currentConfig);
+            if (problem.isSolved(currentConfig)) {
+                return buildPath(currentNode);
+            }
+            for (Move<T> move : problem.getMoves(currentConfig)) {
+                int g = currentNode.g + move.cost;
+                int f = g + (heuristic.eval(currentConfig) * hmul);
+                Node<T> node = nodes.get(move.config);
+                if (node == null) {
+                    node = new Node<>(move.config, currentNode, move, g, f);
+                    nodes.put(move.config, node);
+                    handleMap.put(move.config, openSet.insert(f, move.config));
+                } else if (g < node.g) {
+                    node.g = g;
+                    node.f = f;
+                    node.parent = currentNode;
+                    node.move = move;
+                    handleMap.get(move.config).decreaseKey(f);
+                }
+            }
+        }
+        return new ArrayList<>();
+    }
+
+    private static <T> List<Move<T>> buildPath(Node<T> node) {
+        List<Move<T>> moves = new ArrayList<>();
+        while (node.parent != null) {
+            moves.add(node.move);
+            node = node.parent;
+        }
+        Collections.reverse(moves);
+        return moves;
+    }
+
+    private static class Node<T> {
+        T config;
+        Node<T> parent;
+        Move<T> move;
+        int g;
+        int f;
+
+        public Node(T config, Node<T> parent, Move<T> move, int g, int f) {
+            this.config = config;
+            this.parent = parent;
+            this.move = move;
+            this.g = g;
+            this.f = f;
+        }
     }
 
     /**
