@@ -1,4 +1,4 @@
-package epieffe.solver.example;
+package eth.epieffe.jwalker.example;
 
 import java.util.Arrays;
 

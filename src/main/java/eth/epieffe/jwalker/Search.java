@@ -1,18 +1,14 @@
-package epieffe.solver.algorithm;
-
-import epieffe.solver.heuristic.Heuristic;
-import epieffe.solver.problem.Problem;
+package eth.epieffe.jwalker;
 
 /**
  * Un algoritmo generico che cerca la soluzione di un problema a partire
  * da una configurazione iniziale.
  */
-public interface Search {
-
+public interface Search<T> {
 
     /**
      * Esegue la ricerca e ritorna la migliore soluzione trovata.
      * nb: NON è garantita la correttezza della soluzione!!!
      */
-    <T> T start(Problem<T> problem, T config, Heuristic<T> h);
+    T start(T config);
 }

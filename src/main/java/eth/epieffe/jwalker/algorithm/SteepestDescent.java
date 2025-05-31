@@ -1,21 +1,41 @@
-package epieffe.solver.algorithm;
+package eth.epieffe.jwalker.algorithm;
+
+import eth.epieffe.jwalker.Search;
+import eth.epieffe.jwalker.Heuristic;
+import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
-import epieffe.solver.heuristic.Heuristic;
-import epieffe.solver.problem.Move;
-import epieffe.solver.problem.Problem;
+public class SteepestDescent<T> implements Search<T> {
 
-class Searches {
+    private final Random random = new Random();
 
-    private static final Random random = new Random();
+    private final Problem<T> problem;
 
-    static <T> T steepestDescent(Problem<T> problem, T config, Heuristic<T> h, int maxSides) {
+    private final Heuristic<T> heuristic;
+
+    private final int maxSides;
+
+    public SteepestDescent(Problem<T> problem, Heuristic<T> heuristic, int maxSides) {
+        Objects.requireNonNull(problem);
+        Objects.requireNonNull(heuristic);
+        if (maxSides < 0) {
+            throw new IllegalArgumentException("Argument maxSides must not be negative");
+        }
+        this.problem = problem;
+        this.heuristic = heuristic;
+        this.maxSides = maxSides;
+    }
+
+    @Override
+    public T start(T config) {
         T sol = null;
         T localBest = config;
-        int localBestH = h.eval(config);
+        int localBestH = heuristic.eval(config);
         int countSides = 0;
         while (sol == null) {
             int oldBestH = localBestH;
@@ -23,7 +43,7 @@ class Searches {
             List<T> bestMoveList = new ArrayList<>();
             for (Move<T> m : moveList) {
                 T newProblem = m.config;
-                int newH = h.eval(newProblem);
+                int newH = heuristic.eval(newProblem);
                 if (newH <= localBestH) {
                     if (newH < localBestH) {
                         localBestH = newH;

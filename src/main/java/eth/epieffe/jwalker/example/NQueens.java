@@ -1,4 +1,4 @@
-package epieffe.solver.problem.config;
+package eth.epieffe.jwalker.example;
 
 import java.util.Arrays;
 import java.util.Random;

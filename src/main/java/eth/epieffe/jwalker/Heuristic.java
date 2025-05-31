@@ -1,4 +1,4 @@
-package epieffe.solver.heuristic;
+package eth.epieffe.jwalker;
 
 /**
  * Created by user on 03/03/17.

@@ -1,6 +1,4 @@
-package epieffe.solver.heuristic;
-
-import epieffe.solver.problem.config.NPuzzle;
+package eth.epieffe.jwalker.example;
 
 public class NPuzzleHeuristic {
 

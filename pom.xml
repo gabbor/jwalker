@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>epieffe</groupId>
-    <artifactId>epieffe-solver</artifactId>
+    <groupId>com.github.epieffe</groupId>
+    <artifactId>jwalker</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 
     <properties>
@@ -13,7 +13,7 @@
     </properties>
 
     <build>
-        <finalName>epieffe-solver</finalName>
+        <finalName>jwalker</finalName>
 
         <plugins>
             <plugin>
@@ -24,7 +24,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>epieffe.solver.example.Main</mainClass>
+                            <mainClass>eth.epieffe.jwalker.example.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -33,7 +33,7 @@
     </build>
 
     <scm>
-        <developerConnection>scm:git:http://github.com/Ippolo/solver</developerConnection>
+        <developerConnection>scm:git:http://github.com/epieffe/jwalker</developerConnection>
         <tag>HEAD</tag>
     </scm>
 </project>

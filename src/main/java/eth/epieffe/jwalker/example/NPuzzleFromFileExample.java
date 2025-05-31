@@ -1,10 +1,8 @@
-package epieffe.solver.example;
+package eth.epieffe.jwalker.example;
 
-import epieffe.solver.algorithm.VisitFactory;
-import epieffe.solver.heuristic.NPuzzleHeuristic;
-import epieffe.solver.problem.Move;
-import epieffe.solver.problem.config.NPuzzle;
-import epieffe.solver.problem.NPuzzleProblem;
+import eth.epieffe.jwalker.Visit;
+import eth.epieffe.jwalker.Visits;
+import eth.epieffe.jwalker.Move;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,10 +24,10 @@ public class NPuzzleFromFileExample {
             System.out.println("Initial configuration:");
             System.out.println(config);
             System.out.println("--------------");
-            List<Move<NPuzzle>> moveList = VisitFactory.bestFirst()
-                    .start(new NPuzzleProblem(), config, NPuzzleHeuristic::manhattanDistance);
+            Visit<NPuzzle> visit = Visits.greedyBestFirst(new NPuzzleProblem(), NPuzzleHeuristic::manhattanDistance);
+            List<Move<NPuzzle>> moves = visit.start(config);
             System.out.println("Move list:");
-            moveList.forEach(s -> System.out.println(s.move));
+            moves.forEach(s -> System.out.println(s.move));
         } catch (FileNotFoundException e) {
             System.err.println("Invalid file path");
         } catch (IOException e) {

@@ -1,13 +1,12 @@
-package epieffe.solver.example;
+package eth.epieffe.jwalker.example;
 
-import epieffe.solver.algorithm.Search;
-import epieffe.solver.algorithm.SearchFactory;
-import epieffe.solver.algorithm.Visit;
-import epieffe.solver.algorithm.VisitFactory;
-import epieffe.solver.heuristic.Heuristic;
-import epieffe.solver.heuristic.NQueensHeuristic;
-import epieffe.solver.problem.*;
-import epieffe.solver.problem.config.NQueens;
+import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Search;
+import eth.epieffe.jwalker.Searches;
+import eth.epieffe.jwalker.Visit;
+import eth.epieffe.jwalker.Visits;
+import eth.epieffe.jwalker.Heuristic;
 
 import java.util.List;
 
@@ -36,20 +35,19 @@ public class NQueensExample {
     }
 
     public static void solveWithSteepestDescentSearch(NQueens config, int maxSides) {
-        final Heuristic<NQueens> h = NQueensHeuristic::numThreats;
-        final Search search = SearchFactory.steepestDescent(maxSides);
         Problem<NQueens> problem = new NQueensProblem();
-        NQueens sol = search.start(problem, config, h);
+        final Heuristic<NQueens> heuristic = NQueensHeuristic::numThreats;
+        final Search<NQueens> search = Searches.steepestDescent(problem, heuristic, maxSides);
+        NQueens sol = search.start(config);
         System.out.println(sol);
         System.out.println("is solved: " + problem.isSolved(sol));
-        System.out.println("conflicts: " + h.eval(sol));
+        System.out.println("conflicts: " + heuristic.eval(sol));
     }
 
     public static void solveWithBestFirstVisit(NQueens config) {
-        final Heuristic<NQueens> h = NQueensHeuristic::numThreats;
-        final Visit visit = VisitFactory.bestFirst();
         Problem<NQueens> problem = new NQueensProblem();
-        List<Move<NQueens>> moveList = visit.start(problem, config, h);
+        final Visit<NQueens> visit = Visits.greedyBestFirst(problem, NQueensHeuristic::numThreats);
+        List<Move<NQueens>> moveList = visit.start(config);
         // moveList.forEach(s -> System.out.println(s.move));
         NQueens sol = moveList.get(moveList.size() - 1).config;
         System.out.println(sol);

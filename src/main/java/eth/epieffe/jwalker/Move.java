@@ -1,4 +1,4 @@
-package epieffe.solver.problem;
+package eth.epieffe.jwalker;
 
 public class Move<T> {
 

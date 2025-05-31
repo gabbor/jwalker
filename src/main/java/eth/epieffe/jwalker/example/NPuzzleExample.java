@@ -1,13 +1,9 @@
-package epieffe.solver.example;
+package eth.epieffe.jwalker.example;
 
-import epieffe.solver.algorithm.Visit;
-import epieffe.solver.algorithm.VisitFactory;
-import epieffe.solver.heuristic.Heuristic;
-import epieffe.solver.heuristic.NPuzzleHeuristic;
-import epieffe.solver.problem.Move;
-import epieffe.solver.problem.config.NPuzzle;
-import epieffe.solver.problem.Problem;
-import epieffe.solver.problem.NPuzzleProblem;
+import eth.epieffe.jwalker.Visit;
+import eth.epieffe.jwalker.Visits;
+import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Problem;
 
 import java.util.List;
 
@@ -32,6 +28,8 @@ public class NPuzzleExample {
             {1, 15, 11, -1}
     };
 
+    private static final Problem<NPuzzle> problem = new NPuzzleProblem();
+
     public static void main(String... args) {
         NPuzzle config = NPuzzle.newInstance(EXAMPLE_1);
         solveWithBestFirstManhattan(config);
@@ -42,15 +40,21 @@ public class NPuzzleExample {
     }
 
     public static void solveWithAStarManhattan(NPuzzle config, int approx) {
-        solveAndPrint(config, VisitFactory.aStar(approx), NPuzzleHeuristic::manhattanDistance);
+        Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::manhattanDistance, approx);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
     public static void solveWithBestFirstManhattan(NPuzzle config) {
-        solveAndPrint(config, VisitFactory.bestFirst(), NPuzzleHeuristic::manhattanDistance);
+        Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::manhattanDistance);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
     public static void solveWithBFSManhattan(NPuzzle config) {
-        solveAndPrint(config, VisitFactory.bfs(), NPuzzleHeuristic::manhattanDistance);
+        Visit<NPuzzle> visit = Visits.bfs(problem);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
     public static void solveWithAStarOutOfPlace(NPuzzle config) {
@@ -58,20 +62,24 @@ public class NPuzzleExample {
     }
 
     public static void solveWithAStarOutOfPlace(NPuzzle config, int approx) {
-        solveAndPrint(config, VisitFactory.aStar(approx), NPuzzleHeuristic::outOfPlace);
+        Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::outOfPlace, approx);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
     public static void solveWithBestFirstOutOfPlace(NPuzzle config) {
-        solveAndPrint(config, VisitFactory.bestFirst(), NPuzzleHeuristic::outOfPlace);
+        Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::outOfPlace);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
     public static void solveWithBFSOutOfPlace(NPuzzle config) {
-        solveAndPrint(config, VisitFactory.bfs(), NPuzzleHeuristic::outOfPlace);
+        Visit<NPuzzle> visit = Visits.bfs(problem);
+        List<Move<NPuzzle>> moves = visit.start(config);
+        printMoves(moves);
     }
 
-    private static void solveAndPrint(NPuzzle config, Visit visit, Heuristic<NPuzzle> h) {
-        Problem<NPuzzle> problem = new NPuzzleProblem();
-        List<Move<NPuzzle>> moveList = visit.start(problem, config, h);
-        moveList.forEach(s -> System.out.println(s.move));
+    private static void printMoves(List<Move<NPuzzle>> moves) {
+        moves.forEach(s -> System.out.println(s.move));
     }
 }

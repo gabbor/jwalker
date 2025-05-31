@@ -1,4 +1,4 @@
-package epieffe.solver.problem;
+package eth.epieffe.jwalker;
 
 import java.util.List;
 

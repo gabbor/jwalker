@@ -1,6 +1,4 @@
-package epieffe.solver.heuristic;
-
-import epieffe.solver.problem.config.NQueens;
+package eth.epieffe.jwalker.example;
 
 public class NQueensHeuristic {
 

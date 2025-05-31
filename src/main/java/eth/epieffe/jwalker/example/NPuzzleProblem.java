@@ -1,6 +1,7 @@
-package epieffe.solver.problem;
+package eth.epieffe.jwalker.example;
 
-import epieffe.solver.problem.config.NPuzzle;
+import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
