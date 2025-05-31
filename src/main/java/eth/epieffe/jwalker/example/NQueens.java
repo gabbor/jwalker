@@ -1,5 +1,7 @@
 package eth.epieffe.jwalker.example;
 
+import eth.epieffe.jwalker.Problem;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,6 +13,8 @@ import java.util.Random;
  * possiamo fissare ogni regina su una colonna per ridurre il numero delle possibili configurazioni!
  */
 public class NQueens {
+
+    public static final Problem<NQueens> PROBLEM = new NQueensProblem();
 
     private static final Random random = new Random();
 
