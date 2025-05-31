@@ -9,6 +9,9 @@ import java.util.*;
  * Il gioco è risolto quando tutte le celle sono ordinate e la cella vuota sta nell'ultima posizione.
  */
 public class NPuzzle {
+
+    public static final NPuzzleProblem PROBLEM = new NPuzzleProblem();
+
     private final byte[][] table;
     private final byte emptyX;
     private final byte emptyY;
