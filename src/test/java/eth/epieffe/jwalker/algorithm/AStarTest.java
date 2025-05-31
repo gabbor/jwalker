@@ -25,7 +25,7 @@ public class AStarTest {
             {2,  5, -1}
         };
         NPuzzle start = NPuzzle.newInstance(table);
-        List<Move<NPuzzle>> path = visit.start(start);
+        List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(22, path.size());
     }
@@ -39,7 +39,7 @@ public class AStarTest {
             {1,  2,  8}
         };
         NPuzzle start = NPuzzle.newInstance(table);
-        List<Move<NPuzzle>> path = visit.start(start);
+        List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(22, path.size());
     }
@@ -53,7 +53,7 @@ public class AStarTest {
             {5, -1,  6}
         };
         NPuzzle start = NPuzzle.newInstance(table);
-        List<Move<NPuzzle>> path = visit.start(start);
+        List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(13, path.size());
     }
@@ -68,7 +68,7 @@ public class AStarTest {
             {1, 15, 11, -1}
         };
         NPuzzle start = NPuzzle.newInstance(table);
-        List<Move<NPuzzle>> path = visit.start(start);
+        List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(78, path.size());
     }

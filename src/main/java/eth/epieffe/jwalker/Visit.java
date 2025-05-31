@@ -10,5 +10,5 @@ public interface Visit<T> {
     /**
      * Esegue la visita dalla configurazione e ritorna un cammino fino ad una soluzione.
      */
-    List<Move<T>> start(T config);
+    List<Move<T>> run(T config);
 }

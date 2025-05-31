@@ -1,6 +1,6 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Search;
+import eth.epieffe.jwalker.LocalSearch;
 import eth.epieffe.jwalker.Heuristic;
 import eth.epieffe.jwalker.Move;
 import eth.epieffe.jwalker.Problem;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class SteepestDescent<T> implements Search<T> {
+public class SteepestDescent<T> implements LocalSearch<T> {
 
     private final Random random = new Random();
 
@@ -32,7 +32,7 @@ public class SteepestDescent<T> implements Search<T> {
     }
 
     @Override
-    public T start(T config) {
+    public T run(T config) {
         T sol = null;
         T localBest = config;
         int localBestH = heuristic.eval(config);

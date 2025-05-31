@@ -37,7 +37,7 @@ public class AStar<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> start(T start) {
+    public List<Move<T>> run(T start) {
         FibonacciHeap<T> openSet = new FibonacciHeap<>();
         Map<T, ANode<T>> nodes = new HashMap<>();
         FibonacciHeap.Handle<T> startHandle = openSet.insert(0, start);

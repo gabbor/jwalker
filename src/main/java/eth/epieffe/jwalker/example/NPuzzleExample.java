@@ -41,19 +41,19 @@ public class NPuzzleExample {
 
     public static void solveWithAStarManhattan(NPuzzle config, int approx) {
         Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::manhattanDistance, approx);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 
     public static void solveWithBestFirstManhattan(NPuzzle config) {
         Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::manhattanDistance);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 
     public static void solveWithBFSManhattan(NPuzzle config) {
         Visit<NPuzzle> visit = Visits.bfs(problem);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 
@@ -63,19 +63,19 @@ public class NPuzzleExample {
 
     public static void solveWithAStarOutOfPlace(NPuzzle config, int approx) {
         Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::outOfPlace, approx);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 
     public static void solveWithBestFirstOutOfPlace(NPuzzle config) {
         Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::outOfPlace);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 
     public static void solveWithBFSOutOfPlace(NPuzzle config) {
         Visit<NPuzzle> visit = Visits.bfs(problem);
-        List<Move<NPuzzle>> moves = visit.start(config);
+        List<Move<NPuzzle>> moves = visit.run(config);
         printMoves(moves);
     }
 

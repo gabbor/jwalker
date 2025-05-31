@@ -27,7 +27,7 @@ public class GreedyBestFirst<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> start(T start) {
+    public List<Move<T>> run(T start) {
         FibonacciHeap<T> openSet = new FibonacciHeap<>();
         Map<T, Node<T>> nodes = new HashMap<>();
         openSet.insert(0, start);

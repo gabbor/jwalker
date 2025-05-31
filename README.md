@@ -8,7 +8,7 @@ To define your custom problem you must implement the [Problem](src/main/java/eth
 
 You also need to define a heuristic for that problem implementing the [Heuristic](src/main/java/eth/epieffe/jwalker/Heuristic.java) interface. For example implementations see [NPuzzleHeuristic](src/main/java/eth/epieffe/jwalker/example/NPuzzleHeuristic.java) or [NQueensHeuristic](src/main/java/eth/epieffe/jwalker/example/NQueensHeuristic.java) classes.
 
-Then you can try to find a solution for your problem using a built-in solver that can be instantiated using [Visits](src/main/java/eth/epieffe/jwalker/Visits.java) or [Searches](src/main/java/eth/epieffe/jwalker/Searches.java) classes.
+Then you can try to find a solution for your problem using a built-in solver that can be instantiated using [Visits](src/main/java/eth/epieffe/jwalker/Visits.java) or [LocalSearches](src/main/java/eth/epieffe/jwalker/LocalSearches.java) classes.
 
 ## Built-in algorithms
 Here we describe the built-in search algorithms. Developers may add new algorithms by implementing the relative Java interface.
@@ -24,13 +24,13 @@ Implements the [Visit](src/main/java/eth/epieffe/jwalker/Visit.java) interface.
 - BFS ([Wikipedia](https://en.wikipedia.org/wiki/Breadth-first_search))
 - Dijkstra ([Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm))
 
-### Searches
-A Search algorithm starts from an initial problem configuration (usually randomly picked) and iteratively apply moves in order to get close to a solution. Only the found solution is returned, while the path that brings from the initial configuration to the solution is not of interest when using this kind of algorithms.
+### Local searches
+A Local search algorithm starts from an initial problem configuration (usually randomly picked) and iteratively apply moves in order to get close to a solution. Only the found solution is returned, while the path that brings from the initial configuration to the solution is not of interest when using these kind of algorithms.
 
 **The correctness of the found solution is not guaranteed**. If the search does not find a correct solution it returns a configuration that is as much close as possible to correctness.
 
-Implements the [Search](src/main/java/eth/epieffe/jwalker/Search.java) interface.
-#### built-in searches:
+Implements the [LocalSearch](src/main/java/eth/epieffe/jwalker/LocalSearch.java) interface.
+#### built-in local searches:
 - Steepest Descent ([Wikipedia](https://en.wikipedia.org/wiki/Gradient_descent))
 
 ## Quick demo

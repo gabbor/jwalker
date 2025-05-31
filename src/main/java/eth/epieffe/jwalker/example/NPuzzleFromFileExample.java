@@ -25,7 +25,7 @@ public class NPuzzleFromFileExample {
             System.out.println(config);
             System.out.println("--------------");
             Visit<NPuzzle> visit = Visits.greedyBestFirst(new NPuzzleProblem(), NPuzzleHeuristic::manhattanDistance);
-            List<Move<NPuzzle>> moves = visit.start(config);
+            List<Move<NPuzzle>> moves = visit.run(config);
             System.out.println("Move list:");
             moves.forEach(s -> System.out.println(s.move));
         } catch (FileNotFoundException e) {

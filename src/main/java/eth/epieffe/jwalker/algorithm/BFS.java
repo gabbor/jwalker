@@ -25,7 +25,7 @@ public class BFS<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> start(T config) {
+    public List<Move<T>> run(T config) {
         Move<T> sol = null;
         Set<T> visitedSet = new HashSet<>();
         Queue<Move<T>> frontierQueue = new LinkedList<>();
