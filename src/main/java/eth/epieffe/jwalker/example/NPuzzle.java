@@ -1,5 +1,7 @@
 package eth.epieffe.jwalker.example;
 
+import eth.epieffe.jwalker.Problem;
+
 import java.util.Arrays;
 
 /**
@@ -10,81 +12,88 @@ import java.util.Arrays;
  */
 public class NPuzzle {
 
-    public static final NPuzzleProblem PROBLEM = new NPuzzleProblem();
-    private final byte[] table;
-    private final byte length;
-    private final byte emptyX;
-    private final byte emptyY;
+    public static final Problem<NPuzzle> PROBLEM = new NPuzzleProblem();
 
-    public static NPuzzle newInstance(byte[][] matrix) {
-        if (matrix.length < 1 || matrix[0].length != matrix.length) {
-            throw new IllegalArgumentException("invalid table size");
+    final byte length;
+    final byte emptyIndex;
+    final byte[] table;
+
+    public static NPuzzle newInstance(int... nums) {
+        int length = (int) Math.sqrt(nums.length);
+        if (length == 0 || length * length != nums.length) {
+            throw new IllegalArgumentException("Invalid size");
         }
-        byte length = (byte) matrix.length;
-        byte[] flatTable = new byte[length * length];
-        byte emptyX = -1;
-        byte emptyY = -1;
-
-        for (byte i = 0; i < length; i++) {
-            for (byte j = 0; j < length; j++) {
-                byte value = matrix[i][j];
-                if (value >= length * length) {
-                    throw new IllegalArgumentException("invalid table: cell value too high");
-                }
-                if (value < 1) {
-                    if (emptyX >= 0 || emptyY >= 0) {
-                        throw new IllegalArgumentException("invalid table: more than one empty cell");
-                    }
-                    emptyX = j;
-                    emptyY = i;
-                }
-                flatTable[i * length + j] = value;
+        if (length > Byte.MAX_VALUE) {
+            throw new IllegalArgumentException("Size is too large");
+        }
+        // Find empty cell index
+        int emptyIndex = -1;
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] <= 0) {
+                emptyIndex = i;
+                break;
             }
         }
-        if (emptyX < 0 || emptyY < 0) {
-            throw new IllegalArgumentException("invalid table: no empty cell");
+        if (emptyIndex == -1) {
+            throw new IllegalArgumentException("Missing empty cell");
         }
-        return new NPuzzle(flatTable, length, emptyX, emptyY);
+        byte[] table = new byte[nums.length];
+        for (int i = 0; i < nums.length; ++i) {
+            table[i] = (byte) nums[i];
+        }
+        table[emptyIndex] = 0;
+        // Each number from 0 to table.length must be present
+        boolean[] found = new boolean[table.length];
+        for (byte b : table) {
+            if (b < 0 || b >= table.length) {
+                throw new IllegalArgumentException("Invalid number: " + b);
+            }
+            found[b] = true;
+        }
+        for (int i = 0; i < table.length; ++i) {
+            if (!found[i]) {
+                throw new IllegalArgumentException("Missing number: " + i);
+            }
+        }
+
+        return new NPuzzle((byte) length, (byte) emptyIndex, table);
     }
 
     /**
-     * @param t: array che rappresenta la configurazione.
-     * @param l: dimensione del lato del puzzle (es. 3 per un 3x3).
-     * @param x: riga della cella vuota.
-     * @param y: colonna della cella vuota.
+     * @param table: array che rappresenta la configurazione.
+     * @param length: dimensione del lato del puzzle (es. 3 per un 3x3).
+     * @param emptyIndex: posizione della cella vuota.
      *           Si assume che la matrice rappresenti una configurazione valida
-     *           e che x e y abbiano valori corretti.
+     *           e che emptyIndex sia valorizzato correttamente.
      */
-    public NPuzzle(byte[] t, byte l, byte x, byte y) {
-        this.table = t;
-        this.length = l;
-        this.emptyX = x;
-        this.emptyY = y;
+    NPuzzle(byte length, byte emptyIndex, byte[] table) {
+        this.length = length;
+        this.emptyIndex = emptyIndex;
+        this.table = table;
     }
 
     public byte getLength() {
         return length;
     }
 
-    public byte getCell(byte row, byte col) {
+    public byte getCell(int row, int col) {
         return table[row * length + col];
     }
 
-    public byte getEmptyX() {
-        return emptyX;
+    public int getEmptyX() {
+        return emptyIndex % length;
     }
 
-    public byte getEmptyY() {
-        return emptyY;
+    public int getEmptyY() {
+        return emptyIndex / length;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof NPuzzle)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof NPuzzle)) return false;
         NPuzzle other = (NPuzzle) o;
-        return this.length == other.length && Arrays.equals(this.table, other.table);
+        return Arrays.equals(this.table, other.table);
     }
 
     @Override
@@ -94,15 +103,6 @@ public class NPuzzle {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (byte i = 0; i < length; i++) {
-            sb.append("[");
-            for (byte j = 0; j < length; j++) {
-                sb.append(getCell(i, j));
-                if (j < length - 1) sb.append(", ");
-            }
-            sb.append("]\n");
-        }
-        return sb.toString().trim();
+        return Arrays.toString(table);
     }
 }

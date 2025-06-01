@@ -19,12 +19,7 @@ public class AStarTest {
     @Test
     public void test8PuzzleWithManhattanHeuristic() {
         Visit<NPuzzle> visit = new AStar<>(nPuzzle, NPuzzleHeuristic::manhattanDistance);
-        byte[][] table = {
-            {8,  7,  4},
-            {1,  6,  3},
-            {2,  5, -1}
-        };
-        NPuzzle start = NPuzzle.newInstance(table);
+        NPuzzle start = NPuzzle.newInstance(8, 7, 4, 1, 6, 3, 2, 5, 0);
         List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(22, path.size());
@@ -33,12 +28,7 @@ public class AStarTest {
     @Test
     public void test8PuzzleWithOutOfPlaceHeuristic() {
         Visit<NPuzzle> visit = new AStar<>(nPuzzle, NPuzzleHeuristic::outOfPlace);
-        byte[][] table = {
-            {5,  3,  7},
-            {4, -1,  6},
-            {1,  2,  8}
-        };
-        NPuzzle start = NPuzzle.newInstance(table);
+        NPuzzle start = NPuzzle.newInstance(5, 3, 7, 4, 0, 6, 1, 2, 8);
         List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(22, path.size());
@@ -47,12 +37,7 @@ public class AStarTest {
     @Test
     public void test8PuzzleWithDijkstra() {
         Visit<NPuzzle> visit = new AStar<>(nPuzzle, c -> 0);
-        byte[][] table = {
-            {7,  1,  2},
-            {4,  8,  3},
-            {5, -1,  6}
-        };
-        NPuzzle start = NPuzzle.newInstance(table);
+        NPuzzle start = NPuzzle.newInstance(7, 1, 2, 4, 8, 3, 5, 0, 6);
         List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(13, path.size());
@@ -61,13 +46,7 @@ public class AStarTest {
     @Test
     public void test15PuzzleWithHMulAndManhattanHeuristic() {
         Visit<NPuzzle> visit = new AStar<>(nPuzzle, NPuzzleHeuristic::manhattanDistance, 2);
-        byte[][] table = {
-            {8, 12, 10,  7},
-            {3, 14,  6, 13},
-            {4,  9,  5,  2},
-            {1, 15, 11, -1}
-        };
-        NPuzzle start = NPuzzle.newInstance(table);
+        NPuzzle start = NPuzzle.newInstance(8, 12, 10,  7, 3, 14,  6, 13, 4,  9,  5,  2, 1, 15, 11,  0);
         List<Move<NPuzzle>> path = visit.run(start);
         assertValidPath(nPuzzle, start, path);
         assertEquals(78, path.size());

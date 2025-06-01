@@ -14,80 +14,48 @@ public class NPuzzleProblem implements Problem<NPuzzle> {
      */
     @Override
     public List<Move<NPuzzle>> getMoves(NPuzzle config) {
-        byte emptyY = config.getEmptyY();
-        byte emptyX = config.getEmptyX();
-        byte length = config.getLength();
         List<Move<NPuzzle>> moveList = new ArrayList<>(4);
-        if (emptyY > 0) {
+        if (config.getEmptyY() > 0) {
             // move up
-            byte[] newTable = copyTable(config);
-            int from = (emptyY - 1) * length + emptyX;
-            int to = emptyY * length + emptyX;
-            swap(newTable, from, to);
-            moveList.add(new Move<>("UP", 1, new NPuzzle(newTable, length, emptyX, (byte) (emptyY - 1))));
+            int newEmptyIndex = (config.getEmptyY() - 1) * config.length + config.getEmptyX();
+            moveList.add(new Move<>("UP", 1, swapEmptyCell(config, newEmptyIndex)));
         }
-        if (emptyY < length - 1) {
+        if (config.getEmptyY() < config.length - 1) {
             // move down
-            byte[] newTable = copyTable(config);
-            int from = (emptyY + 1) * length + emptyX;
-            int to = emptyY * length + emptyX;
-            swap(newTable, from, to);
-            moveList.add(new Move<>("DOWN", 1, new NPuzzle(newTable, length, emptyX, (byte) (emptyY + 1))));
+            int newEmptyIndex = (config.getEmptyY() + 1) * config.length + config.getEmptyX();
+            moveList.add(new Move<>("DOWN", 1, swapEmptyCell(config, newEmptyIndex)));
         }
-        if (emptyX > 0) {
+        if (config.getEmptyX() > 0) {
             // move left
-            byte[] newTable = copyTable(config);
-            int from = emptyY * length + (emptyX - 1);
-            int to = emptyY * length + emptyX;
-            swap(newTable, from, to);
-            moveList.add(new Move<>("LEFT", 1, new NPuzzle(newTable, length, (byte) (emptyX - 1), emptyY)));
+            int newEmptyIndex = config.getEmptyY() * config.length + (config.getEmptyX() - 1);
+            moveList.add(new Move<>("LEFT", 1, swapEmptyCell(config, newEmptyIndex)));
         }
-        if (emptyX < length - 1) {
+        if (config.getEmptyX() < config.length - 1) {
             // move right
-            byte[] newTable = copyTable(config);
-            int from = emptyY * length + (emptyX + 1);
-            int to = emptyY * length + emptyX;
-            swap(newTable, from, to);
-            moveList.add(new Move<>("RIGHT", 1, new NPuzzle(newTable, length, (byte) (emptyX + 1), emptyY)));
+            int newEmptyIndex = config.getEmptyY() * config.length + (config.getEmptyX() + 1);
+            moveList.add(new Move<>("RIGHT", 1, swapEmptyCell(config, newEmptyIndex)));
         }
 
         return moveList;
     }
 
-    private void swap(byte[] array, int i, int j) {
-        byte temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-
-
     @Override
     public boolean isSolved(NPuzzle config) {
-        int length = config.getLength();
-        int v = 1;
-        for (byte i = 0; i < length; i++) {
-            for (byte j = 0; j < length; j++) {
-                if (i == length - 1 && j == length - 1) {
-                    if (config.getCell(i, j) > 0) {
-                        return false;
-                    }
-                } else if (config.getCell(i, j) != v) {
-                    return false;
-                }
-                v++;
+        if (config.table[config.table.length -1] > 0) {
+            return false;
+        }
+        for (int i = 1; i < config.table.length; ++i) {
+            if (config.table[i -1] != i) {
+                return false;
             }
         }
         return true;
     }
 
-    private byte[] copyTable(NPuzzle config) {
-        int length = config.getLength();
-        byte[] newTable = new byte[length * length];
-        for (byte i = 0; i < length; i++) {
-            for (byte j = 0; j < length; j++) {
-                newTable[i * length + j] = config.getCell(i, j);
-            }
-        }
-        return newTable;
+    private NPuzzle swapEmptyCell(NPuzzle config, int newEmptyIndex) {
+        byte[] newTable = config.table.clone();
+        newTable[config.emptyIndex] = config.table[newEmptyIndex];
+        newTable[newEmptyIndex] = 0;
+        return new NPuzzle(config.length, (byte) newEmptyIndex, newTable);
     }
 }

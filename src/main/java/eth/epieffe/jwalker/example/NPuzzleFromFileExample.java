@@ -37,23 +37,15 @@ public class NPuzzleFromFileExample {
 
     private static NPuzzle parseNPuzzleFromFile(String path) throws IOException {
         File file = new File(path);
-        List<Byte> values = new ArrayList<>();
+        List<Integer> values = new ArrayList<>();
         BufferedReader br = new BufferedReader(new FileReader(file));
-        int size = 0;
         String st;
         while ((st = br.readLine()) != null) {
-            size++;
             String[] line = st.split(",|;");
             for (String value : line) {
-                values.add(Byte.valueOf(value.trim()));
+                values.add(Integer.valueOf(value.trim()));
             }
         }
-        byte[][] table = new byte[size][size];
-        for (int i = 0; i < values.size(); i++) {
-            int row = i / size;
-            int column = i % size;
-            table[row][column] = values.get(i);
-        }
-        return NPuzzle.newInstance(table);
+        return NPuzzle.newInstance(values.stream().mapToInt(v -> v).toArray());
     }
 }
