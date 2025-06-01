@@ -19,13 +19,13 @@ public class AStar<T> implements Visit<T> {
 
     private final Heuristic<T> heuristic;
 
-    private final int hmul;
+    private final double hmul;
 
     public AStar(Problem<T> problem, Heuristic<T> heuristic) {
         this(problem, heuristic, 1);
     }
 
-    public AStar(Problem<T> problem, Heuristic<T> heuristic, int hmul) {
+    public AStar(Problem<T> problem, Heuristic<T> heuristic, double hmul) {
         Objects.requireNonNull(problem);
         Objects.requireNonNull(heuristic);
         if (hmul < 1) {
@@ -52,16 +52,16 @@ public class AStar<T> implements Visit<T> {
                 return buildPath(currentNode);
             }
             for (Move<T> move : problem.getMoves(current)) {
-                int g = currentNode.g + move.cost;
+                double g = currentNode.g + move.cost;
                 ANode<T> node = nodes.get(move.config);
                 if (node == null) {
-                    int h = heuristic.eval(move.config);
-                    int f = g + (h * hmul);
+                    double h = heuristic.eval(move.config);
+                    double f = g + (h * hmul);
                     FibonacciHeap.Handle<T> handle = openSet.insert(f, move.config);
                     node = new ANode<>(currentNode, move, handle, g, h);
                     nodes.put(move.config, node);
                 } else if (!node.isExpanded() && g < node.g) {
-                    int f = g + (node.h * hmul);
+                    double f = g + (node.h * hmul);
                     node.g = g;
                     node.parent = currentNode;
                     node.move = move;
@@ -75,10 +75,10 @@ public class AStar<T> implements Visit<T> {
 
     private static class ANode<T> extends Node<T> {
         FibonacciHeap.Handle<T> handle;
-        int g;
-        int h;
+        double g;
+        double h;
 
-        ANode(ANode<T> parent, Move<T> move, FibonacciHeap.Handle<T> handle, int g, int h) {
+        ANode(ANode<T> parent, Move<T> move, FibonacciHeap.Handle<T> handle, double g, double h) {
             super(parent, move);
             this.handle = handle;
             this.g = g;

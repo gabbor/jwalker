@@ -10,5 +10,5 @@ public interface Heuristic<T> {
      * più il valore di ritorno è piccolo più è vicino ad una soluzione.
      * se la configurazione del problema è già una soluzione ritorna 0.
      */
-    int eval(T config);
+    double eval(T config);
 }

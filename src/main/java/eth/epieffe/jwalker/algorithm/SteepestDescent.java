@@ -35,15 +35,15 @@ public class SteepestDescent<T> implements LocalSearch<T> {
     public T run(T config) {
         T sol = null;
         T localBest = config;
-        int localBestH = heuristic.eval(config);
+        double localBestH = heuristic.eval(config);
         int countSides = 0;
         while (sol == null) {
-            int oldBestH = localBestH;
+            double oldBestH = localBestH;
             List<Move<T>> moveList = problem.getMoves(localBest);
             List<T> bestMoveList = new ArrayList<>();
             for (Move<T> m : moveList) {
                 T newProblem = m.config;
-                int newH = heuristic.eval(newProblem);
+                double newH = heuristic.eval(newProblem);
                 if (newH <= localBestH) {
                     if (newH < localBestH) {
                         localBestH = newH;

@@ -15,7 +15,7 @@ public class SteepestDescentTest {
     private final LocalSearch<NQueens> search = new SteepestDescent<>(
             NQueens.PROBLEM,
             NQueensHeuristic::numThreats,
-        500);
+            500);
 
     @ParameterizedTest
     @MethodSource("nQueens8Provider")
