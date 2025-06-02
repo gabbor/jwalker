@@ -77,6 +77,11 @@ public class AStar<T> implements Visit<T> {
         return null;
     }
 
+    @Override
+    public Problem<T> getProblem() {
+        return problem;
+    }
+
     private static class ANode<T> extends Node<T> {
         FibonacciHeap.Handle<T> handle;
         double g;

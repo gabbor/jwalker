@@ -49,4 +49,9 @@ public class BFS<T> implements Visit<T> {
         // No solution found
         return null;
     }
+
+    @Override
+    public Problem<T> getProblem() {
+        return problem;
+    }
 }

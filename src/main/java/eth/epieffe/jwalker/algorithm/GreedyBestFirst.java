@@ -54,4 +54,9 @@ public class GreedyBestFirst<T> implements Visit<T> {
         // No solution found
         return null;
     }
+
+    @Override
+    public Problem<T> getProblem() {
+        return problem;
+    }
 }
