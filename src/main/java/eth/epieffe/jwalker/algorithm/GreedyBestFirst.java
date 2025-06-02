@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import static eth.epieffe.jwalker.algorithm.Util.buildPath;
 
@@ -27,7 +28,7 @@ public class GreedyBestFirst<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> run(T start) {
+    public List<Move<T>> run(T start, Consumer<T> onVisit) {
         FibonacciHeap<T> openSet = new FibonacciHeap<>();
         Map<T, Node<T>> nodes = new HashMap<>();
         openSet.insert(0, start);
@@ -36,6 +37,9 @@ public class GreedyBestFirst<T> implements Visit<T> {
         while (!openSet.isEmpty()) {
             T current = openSet.deleteMin().getValue();
             Node<T> currentNode = nodes.get(current);
+            if (onVisit != null) {
+                onVisit.accept(current);
+            }
             if (problem.isSolved(current)) {
                 return buildPath(currentNode);
             }

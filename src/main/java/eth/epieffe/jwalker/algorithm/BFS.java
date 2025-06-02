@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class BFS<T> implements Visit<T> {
 
@@ -25,7 +26,7 @@ public class BFS<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> run(T config) {
+    public List<Move<T>> run(T config, Consumer<T> onVisit) {
         Move<T> sol = null;
         Set<T> visitedSet = new HashSet<>();
         Queue<Move<T>> frontierQueue = new LinkedList<>();
@@ -37,6 +38,9 @@ public class BFS<T> implements Visit<T> {
         boolean exitLoop = false;
         while (!frontierQueue.isEmpty() && !exitLoop) {
             Move<T> current = frontierQueue.poll();
+            if (onVisit != null) {
+                onVisit.accept(current.config);
+            }
             if (problem.isSolved(current.config)) {
                 sol = current;
                 exitLoop = true;

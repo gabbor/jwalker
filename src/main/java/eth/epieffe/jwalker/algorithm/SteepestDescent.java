@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class SteepestDescent<T> implements LocalSearch<T> {
 
@@ -32,12 +33,15 @@ public class SteepestDescent<T> implements LocalSearch<T> {
     }
 
     @Override
-    public T run(T config) {
+    public T run(T config, Consumer<T> onVisit) {
         T sol = null;
         T localBest = config;
         double localBestH = heuristic.eval(config);
         int countSides = 0;
         while (sol == null) {
+            if (onVisit != null) {
+                onVisit.accept(localBest);
+            }
             double oldBestH = localBestH;
             List<Move<T>> moveList = problem.getMoves(localBest);
             List<T> bestMoveList = new ArrayList<>();
