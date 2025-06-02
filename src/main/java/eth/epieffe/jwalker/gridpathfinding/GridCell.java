@@ -9,7 +9,7 @@ public class GridCell {
 
     public static GridCell newInstance(GridPathFindingProblem problem, int row, int col) {
         try {
-            if (!problem.getCell(row, col)) {
+            if (problem.getCost(row, col) == 0) {
                 throw new IllegalArgumentException("Cell is blocked");
             }
         } catch (ArrayIndexOutOfBoundsException e) {

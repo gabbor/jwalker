@@ -20,7 +20,7 @@ public class GridPathFindingExample {
         ⬜ ⬜ ⬜ ⬛ ⬛ ⬛ ⬛ ⬛ ⬜ ⬜
         ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ 🎯 ⬜ ⬜ ⬜
     */
-    private static final byte[][] GRID = {
+    private static final int[][] GRID = {
             {1, 1, 1, 1, 0, 0, 1, 1, 1, 1},
             {1, 0, 1, 0, 0, 1, 1, 0, 1, 1},
             {1, 0, 1, 1, 1, 1, 0, 0, 1, 1},
@@ -30,12 +30,12 @@ public class GridPathFindingExample {
             {0, 0, 0, 1, 0, 1, 1, 1, 1, 1},
             {1, 1, 1, 1, 1, 1, 1, 0, 1, 1},
             {1, 1, 1, 0, 0, 0, 0, 0, 1, 1},
-            {1, 1, 1, 1, 1, 1, 2, 1, 1, 1}
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
 
     public static void main(String... args) {
-        GridPathFindingProblem problem = GridPathFindingProblem.newInstance(GRID);
+        GridPathFindingProblem problem = GridPathFindingProblem.newInstance(GRID, 9, 6);
         solveWithDijkstra(problem);
     }
 

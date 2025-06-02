@@ -18,22 +18,31 @@ public class GridPathFindingProblem implements Problem<GridCell> {
         this.targetCol = targetCol;
     }
 
-    public static GridPathFindingProblem newInstance(byte[][] grid) {
-        int targetRow = -1, targetCol = -1;
-
-        byte[][] newGrid = new byte[grid.length][grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                newGrid[i][j] = grid[i][j];
-                if (grid[i][j] == 2) {
-                    targetRow = i;
-                    targetCol = j;
-                    newGrid[i][j] = 1;
-                }
-            }
+    public static GridPathFindingProblem newInstance(int[][] grid, int targetRow, int targetCol) {
+        if (grid.length == 0) {
+            throw new IllegalArgumentException("Empty grid");
         }
-        if (targetRow == -1) {
-            throw new IllegalArgumentException("The grid does not contain a target position (2).");
+        int width = grid.length;
+        int height = grid[0].length;
+        if (targetRow < 0 || targetCol < 0 || targetRow >= height || targetCol >= width) {
+            throw new IllegalArgumentException("Target cell out of grid range");
+        }
+        if (grid[targetRow][targetCol] <= 0) {
+            throw new IllegalArgumentException("Target cell is blocked");
+        }
+
+        byte[][] newGrid = new byte[width][height];
+        for (int i = 0; i < width; ++i) {
+            if (grid[i].length != height) {
+                throw new IllegalArgumentException("Invalid grid");
+            }
+            for (int j = 0; j < height; ++j) {
+                int cell = grid[i][j];
+                if (cell > Byte.MAX_VALUE) {
+                    throw new IllegalArgumentException("Cell value too high: " + cell);
+                }
+                newGrid[i][j] = (byte)(Math.max(cell, 0));
+            }
         }
         return new GridPathFindingProblem(newGrid, targetRow, targetCol);
     }
@@ -55,9 +64,12 @@ public class GridPathFindingProblem implements Problem<GridCell> {
             int newRow = cell.row + directions[i][0];
             int newCol = cell.col + directions[i][1];
 
-            if (newRow >= 0 && newRow < width && newCol >= 0 && newCol < height && grid[newRow][newCol] == 1) {
-                GridCell newCell = new GridCell(newRow, newCol);
-                moves.add(new Move<>(moveNames[i], 1, newCell));
+            if (newRow >= 0 && newRow < width && newCol >= 0 && newCol < height) {
+                byte cost = grid[newRow][newCol];
+                if (cost > 0) {
+                    GridCell newCell = new GridCell(newRow, newCol);
+                    moves.add(new Move<>(moveNames[i], cost, newCell));
+                }
             }
         }
 
@@ -98,9 +110,8 @@ public class GridPathFindingProblem implements Problem<GridCell> {
         return sb.toString();
     }
 
-    public boolean getCell(int row, int col) {
-        int cell = grid[row][col];
-        return cell != 0;
+    public int getCost(int row, int col) {
+        return grid[row][col];
     }
 
     public int getGridWidth() {
