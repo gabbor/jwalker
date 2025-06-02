@@ -39,10 +39,10 @@ public class BFS<T> implements Visit<T> {
                 return buildPath(currentNode);
             }
             for (Move<T> move : problem.getMoves(current)) {
-                Node<T> node = nodes.get(move.config);
+                Node<T> node = nodes.get(move.status);
                 if (node == null) {
-                    frontier.add(move.config);
-                    nodes.put(move.config, new Node<>(currentNode, move));
+                    frontier.add(move.status);
+                    nodes.put(move.status, new Node<>(currentNode, move));
                 }
             }
         }

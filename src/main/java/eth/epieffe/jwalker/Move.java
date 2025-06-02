@@ -8,12 +8,12 @@ public class Move<T> {
 
     public final double cost;
 
-    public final T config;
+    public final T status;
 
-    public Move(String move, double cost, T config) {
+    public Move(String move, double cost, T status) {
         this.move = move;
         this.cost = cost;
-        this.config = config;
+        this.status = status;
     }
 
     @Override
@@ -21,11 +21,11 @@ public class Move<T> {
         if (this == o) return true;
         if (!(o instanceof Move)) return false;
         Move<?> move1 = (Move<?>) o;
-        return cost == move1.cost && Objects.equals(move, move1.move) && Objects.equals(config, move1.config);
+        return cost == move1.cost && Objects.equals(move, move1.move) && Objects.equals(status, move1.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(move, cost, config);
+        return Objects.hash(move, cost, status);
     }
 }

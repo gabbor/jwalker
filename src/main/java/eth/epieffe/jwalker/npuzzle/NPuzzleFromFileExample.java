@@ -20,12 +20,12 @@ public class NPuzzleFromFileExample {
 
     public static void solveNPuzzleFromFile(String path) {
         try {
-            NPuzzle config = parseNPuzzleFromFile(path);
-            System.out.println("Initial configuration:");
-            System.out.println(config);
+            NPuzzle status = parseNPuzzleFromFile(path);
+            System.out.println("Initial status:");
+            System.out.println(status);
             System.out.println("--------------");
             Visit<NPuzzle> visit = Visits.greedyBestFirst(new NPuzzleProblem(), NPuzzleHeuristic::manhattanDistance);
-            List<Move<NPuzzle>> moves = visit.run(config);
+            List<Move<NPuzzle>> moves = visit.run(status);
             System.out.println("Move list:");
             moves.forEach(s -> System.out.println(s.move));
         } catch (FileNotFoundException e) {

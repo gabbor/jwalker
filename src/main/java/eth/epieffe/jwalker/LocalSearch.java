@@ -12,9 +12,9 @@ public interface LocalSearch<T> {
      * Esegue la ricerca e ritorna la migliore soluzione trovata.
      * nb: NON è garantita la correttezza della soluzione!!!
      */
-    default T run(T config) {
-        return run(config, null);
+    default T run(T status) {
+        return run(status, null);
     }
 
-    T run(T config, Consumer<T> onVisit);
+    T run(T status, Consumer<T> onVisit);
 }

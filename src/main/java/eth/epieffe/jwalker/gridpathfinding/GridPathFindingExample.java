@@ -49,7 +49,7 @@ public class GridPathFindingExample {
     private static void printMoves(GridPathFindingProblem problem, GridCell start, List<Move<GridCell>> moves) {
         System.out.println("Moves length: " + moves.size());
         System.out.println(problem.prettyString(start));
-        moves.forEach(m -> System.out.println(problem.prettyString(m.config)));
+        moves.forEach(m -> System.out.println(problem.prettyString(m.status)));
     }
 
 }

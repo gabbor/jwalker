@@ -57,13 +57,13 @@ public class AStar<T> implements Visit<T> {
             }
             for (Move<T> move : problem.getMoves(current)) {
                 double g = currentNode.g + move.cost;
-                ANode<T> node = nodes.get(move.config);
+                ANode<T> node = nodes.get(move.status);
                 if (node == null) {
-                    double h = heuristic.eval(move.config);
+                    double h = heuristic.eval(move.status);
                     double f = g + (h * hmul);
-                    FibonacciHeap.Handle<T> handle = openSet.insert(f, move.config);
+                    FibonacciHeap.Handle<T> handle = openSet.insert(f, move.status);
                     node = new ANode<>(currentNode, move, handle, g, h);
-                    nodes.put(move.config, node);
+                    nodes.put(move.status, node);
                 } else if (!node.isExpanded() && g < node.g) {
                     double f = g + (node.h * hmul);
                     node.g = g;

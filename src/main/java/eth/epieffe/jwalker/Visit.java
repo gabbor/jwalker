@@ -11,9 +11,9 @@ public interface Visit<T> {
     /**
      * Esegue la visita dalla configurazione e ritorna un cammino fino ad una soluzione.
      */
-    default List<Move<T>> run(T config) {
-        return run(config, null);
+    default List<Move<T>> run(T status) {
+        return run(status, null);
     }
 
-    List<Move<T>> run(T config, Consumer<T> onVisit);
+    List<Move<T>> run(T status, Consumer<T> onVisit);
 }

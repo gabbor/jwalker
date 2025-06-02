@@ -21,8 +21,8 @@ public class NQueensExample {
                 maxSides = Integer.parseInt(args[1]);
             }
         }
-        NQueens config = NQueens.newRandomInstance(size);
-        solveWithSteepestDescentSearch(config, maxSides);
+        NQueens status = NQueens.newRandomInstance(size);
+        solveWithSteepestDescentSearch(status, maxSides);
     }
 
     public static void solveWithSteepestDescentSearch(int size) {
@@ -30,26 +30,26 @@ public class NQueensExample {
     }
 
     public static void solveWithSteepestDescentSearch(int size, int maxSides) {
-        NQueens config = NQueens.newRandomInstance(size);
-        solveWithSteepestDescentSearch(config, maxSides);
+        NQueens status = NQueens.newRandomInstance(size);
+        solveWithSteepestDescentSearch(status, maxSides);
     }
 
-    public static void solveWithSteepestDescentSearch(NQueens config, int maxSides) {
+    public static void solveWithSteepestDescentSearch(NQueens status, int maxSides) {
         Problem<NQueens> problem = new NQueensProblem();
         final Heuristic<NQueens> heuristic = NQueensHeuristic::numThreats;
         final LocalSearch<NQueens> search = LocalSearches.steepestDescent(problem, heuristic, maxSides);
-        NQueens sol = search.run(config);
+        NQueens sol = search.run(status);
         System.out.println(sol);
         System.out.println("is solved: " + problem.isSolved(sol));
         System.out.println("conflicts: " + heuristic.eval(sol));
     }
 
-    public static void solveWithBestFirstVisit(NQueens config) {
+    public static void solveWithBestFirstVisit(NQueens status) {
         Problem<NQueens> problem = new NQueensProblem();
         final Visit<NQueens> visit = Visits.greedyBestFirst(problem, NQueensHeuristic::numThreats);
-        List<Move<NQueens>> moveList = visit.run(config);
+        List<Move<NQueens>> moveList = visit.run(status);
         // moveList.forEach(s -> System.out.println(s.move));
-        NQueens sol = moveList.get(moveList.size() - 1).config;
+        NQueens sol = moveList.get(moveList.size() - 1).status;
         System.out.println(sol);
         System.out.println("is solved: " + problem.isSolved(sol));
     }

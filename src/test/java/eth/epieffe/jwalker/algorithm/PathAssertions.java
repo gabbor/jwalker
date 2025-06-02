@@ -17,7 +17,7 @@ class PathAssertions {
         for (Move<T> move : path) {
             boolean valid = problem.getMoves(current).contains(move);
             assertTrue(valid, "Invalid move");
-            current = move.config;
+            current = move.status;
         }
         assertTrue(problem.isSolved(current), "Invalid solution");
     }

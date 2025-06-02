@@ -14,7 +14,7 @@ Then you can try to find a solution for your problem using a built-in solver tha
 Here we describe the built-in search algorithms. Developers may add new algorithms by implementing the relative Java interface.
 
 ### Visits
-A Visit algorithm starts from an initial (user defined) problem configuration and explores the move graph to find the shortest path possible that brings from the initial configuration to a correct solution. Some visits are guaranteed to find an optimal path, while others sacrifice optimality for efficiency.
+A Visit algorithm starts from an initial (user defined) problem status and explores the move graph to find the shortest path possible that brings from the initial status to a correct solution. Some visits are guaranteed to find an optimal path, while others sacrifice optimality for efficiency.
 
 Implements the [Visit](src/main/java/eth/epieffe/jwalker/Visit.java) interface.
 
@@ -25,9 +25,9 @@ Implements the [Visit](src/main/java/eth/epieffe/jwalker/Visit.java) interface.
 - Dijkstra ([Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm))
 
 ### Local searches
-A Local search algorithm starts from an initial problem configuration (usually randomly picked) and iteratively apply moves in order to get close to a solution. Only the found solution is returned, while the path that brings from the initial configuration to the solution is not of interest when using these kind of algorithms.
+A Local search algorithm starts from an initial problem status (usually randomly picked) and iteratively apply moves in order to get close to a solution. Only the found solution is returned, while the path that brings from the initial status to the solution is not of interest when using these kind of algorithms.
 
-**The correctness of the found solution is not guaranteed**. If the search does not find a correct solution it returns a configuration that is as much close as possible to correctness.
+**The correctness of the found solution is not guaranteed**. If the search does not find a correct solution it returns a status that is as much close as possible to correctness.
 
 Implements the [LocalSearch](src/main/java/eth/epieffe/jwalker/LocalSearch.java) interface.
 #### built-in local searches:
@@ -46,9 +46,9 @@ Then you'll find your executable jar file at `target/jwalker.jar`.
 ### NPuzzle demo
 The executable jar file can easily solve *NPuzzle* problem instances using the *Best First* visit.
 
-You need to pass an initial problem configuration to the executable jar file as a csv file path command line argument.
+You need to pass an initial problem status to the executable jar file as a csv file path command line argument.
 
-Some example *NPuzzle* initial configurations can be found in the `examples` folder.
+Some example *NPuzzle* solvable statuses can be found in the `examples` folder.
 
 ```bash
 java -jar target/jwalker.jar npuzzle examples/npuzzle1.csv
