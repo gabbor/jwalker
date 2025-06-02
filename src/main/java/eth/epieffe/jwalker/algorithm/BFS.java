@@ -1,20 +1,18 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Move;
 import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Visit;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
 import java.util.function.Consumer;
+
+import static eth.epieffe.jwalker.algorithm.Util.buildPath;
 
 public class BFS<T> implements Visit<T> {
 
@@ -26,54 +24,29 @@ public class BFS<T> implements Visit<T> {
     }
 
     @Override
-    public List<Move<T>> run(T config, Consumer<T> onVisit) {
-        Move<T> sol = null;
-        Set<T> visitedSet = new HashSet<>();
-        Queue<Move<T>> frontierQueue = new LinkedList<>();
-        Map<Move<T>, Move<T>> parentMap = new HashMap<>();
-        Move<T> startMove = new Move<>("START", 0, config);
-        parentMap.put(startMove, startMove);
-        visitedSet.add(config);
-        frontierQueue.add(startMove);
-        boolean exitLoop = false;
-        while (!frontierQueue.isEmpty() && !exitLoop) {
-            Move<T> current = frontierQueue.poll();
+    public List<Move<T>> run(T start, Consumer<T> onVisit) {
+        Queue<T> frontier = new ArrayDeque<>();
+        Map<T, Node<T>> nodes = new HashMap<>();
+        frontier.add(start);
+        nodes.put(start, new Node<>(null, null));
+        while (!frontier.isEmpty()) {
+            T current = frontier.poll();
+            Node<T> currentNode = nodes.get(current);
             if (onVisit != null) {
-                onVisit.accept(current.config);
+                onVisit.accept(current);
             }
-            if (problem.isSolved(current.config)) {
-                sol = current;
-                exitLoop = true;
-            } else {
-                for (Move<T> move : problem.getMoves(current.config)) {
-                    if (!visitedSet.contains(move.config)) {
-                        visitedSet.add(move.config);
-                        parentMap.put(move, current);
-                        frontierQueue.add(move);
-                    }
+            if (problem.isSolved(current)) {
+                return buildPath(currentNode);
+            }
+            for (Move<T> move : problem.getMoves(current)) {
+                Node<T> node = nodes.get(move.config);
+                if (node == null) {
+                    frontier.add(move.config);
+                    nodes.put(move.config, new Node<>(currentNode, move));
                 }
             }
         }
-        return buildPath(parentMap, sol);
-    }
-
-    private static <T> List<Move<T>> buildPath(Map<Move<T>, Move<T>> parentMap, Move<T> sol) {
-        List<Move<T>> path = null;
-        if (sol != null) {
-            Stack<Move<T>> moveStack = new Stack<>();
-            Move<T> child = sol;
-            Move<T> parent = parentMap.get(child);
-            while (parent != child) {
-                moveStack.push(child);
-                child = parent;
-                parent = parentMap.get(child);
-            }
-            path = new ArrayList<>(moveStack.size());
-            while (!moveStack.isEmpty()) {
-                Move<T> move = moveStack.pop();
-                path.add(move);
-            }
-        }
-        return path;
+        // No solution found
+        return null;
     }
 }
