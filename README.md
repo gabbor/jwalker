@@ -4,9 +4,9 @@ Strongly typed Java library that solves user defined problems with various graph
 As an example, it can solve *NPuzzle* ([Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)) and *NQueens* ([Wikipedia](https://en.wikipedia.org/wiki/Eight_queens_puzzle)) out of the box.
 
 ## Overview
-To define your custom problem you must implement the [Problem](src/main/java/eth/epieffe/jwalker/Problem.java) interface. For example implementations see [NPuzzleProblem](src/main/java/eth/epieffe/jwalker/example/NPuzzleProblem.java) or [NQueensProblem](src/main/java/eth/epieffe/jwalker/example/NQueensProblem.java) classes.
+To define your custom problem you must implement the [Problem](src/main/java/eth/epieffe/jwalker/Problem.java) interface. For example implementations see [NPuzzleProblem](src/main/java/eth/epieffe/jwalker/npuzzle/NPuzzleProblem.java) or [NQueensProblem](src/main/java/eth/epieffe/jwalker/nqueens/NQueensProblem.java) classes.
 
-You also need to define a heuristic for that problem implementing the [Heuristic](src/main/java/eth/epieffe/jwalker/Heuristic.java) interface. For example implementations see [NPuzzleHeuristic](src/main/java/eth/epieffe/jwalker/example/NPuzzleHeuristic.java) or [NQueensHeuristic](src/main/java/eth/epieffe/jwalker/example/NQueensHeuristic.java) classes.
+You also need to define a heuristic for that problem implementing the [Heuristic](src/main/java/eth/epieffe/jwalker/Heuristic.java) interface. For example implementations see [NPuzzleHeuristic](src/main/java/eth/epieffe/jwalker/npuzzle/NPuzzleHeuristic.java) or [NQueensHeuristic](src/main/java/eth/epieffe/jwalker/nqueens/NQueensHeuristic.java) classes.
 
 Then you can try to find a solution for your problem using a built-in solver that can be instantiated using [Visits](src/main/java/eth/epieffe/jwalker/Visits.java) or [LocalSearches](src/main/java/eth/epieffe/jwalker/LocalSearches.java) classes.
 

@@ -1,8 +1,8 @@
 package eth.epieffe.jwalker.algorithm;
 
 import eth.epieffe.jwalker.LocalSearch;
-import eth.epieffe.jwalker.example.NQueens;
-import eth.epieffe.jwalker.example.NQueensHeuristic;
+import eth.epieffe.jwalker.nqueens.NQueens;
+import eth.epieffe.jwalker.nqueens.NQueensHeuristic;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

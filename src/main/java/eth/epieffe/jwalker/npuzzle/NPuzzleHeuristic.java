@@ -1,4 +1,4 @@
-package eth.epieffe.jwalker.example;
+package eth.epieffe.jwalker.npuzzle;
 
 public class NPuzzleHeuristic {
 

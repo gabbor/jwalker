@@ -1,4 +1,4 @@
-package eth.epieffe.jwalker.example;
+package eth.epieffe.jwalker.npuzzle;
 
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Visits;

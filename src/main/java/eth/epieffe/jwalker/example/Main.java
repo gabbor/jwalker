@@ -1,5 +1,8 @@
 package eth.epieffe.jwalker.example;
 
+import eth.epieffe.jwalker.npuzzle.NPuzzleFromFileExample;
+import eth.epieffe.jwalker.nqueens.NQueensExample;
+
 import java.util.Arrays;
 
 public class Main {

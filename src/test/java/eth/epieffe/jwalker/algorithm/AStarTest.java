@@ -3,8 +3,8 @@ package eth.epieffe.jwalker.algorithm;
 import eth.epieffe.jwalker.Move;
 import eth.epieffe.jwalker.Problem;
 import eth.epieffe.jwalker.Visit;
-import eth.epieffe.jwalker.example.NPuzzle;
-import eth.epieffe.jwalker.example.NPuzzleHeuristic;
+import eth.epieffe.jwalker.npuzzle.NPuzzle;
+import eth.epieffe.jwalker.npuzzle.NPuzzleHeuristic;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
