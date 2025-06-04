@@ -18,6 +18,11 @@ public class GridPathFindingProblem implements Problem<GridCell> {
         this.targetCol = targetCol;
     }
 
+
+    public static GridPathFindingProblem newInstance(int[][] grid, GridCell targetCell) {
+        return newInstance(grid, targetCell.row, targetCell.col);
+    }
+
     public static GridPathFindingProblem newInstance(int[][] grid, int targetRow, int targetCol) {
         if (grid.length == 0) {
             throw new IllegalArgumentException("Empty grid");
