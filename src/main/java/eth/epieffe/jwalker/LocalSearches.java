@@ -7,7 +7,7 @@ import eth.epieffe.jwalker.algorithm.SteepestDescent;
  */
 public class LocalSearches {
 
-    public static <T> LocalSearch<T> steepestDescent(Problem<T> problem, Heuristic<T> heuristic, int maxSides) {
-        return new SteepestDescent<>(problem, heuristic, maxSides);
+    public static <N> LocalSearch<N> steepestDescent(Graph<N> graph, Heuristic<N> heuristic, int maxSides) {
+        return new SteepestDescent<>(graph, heuristic, maxSides);
     }
 }

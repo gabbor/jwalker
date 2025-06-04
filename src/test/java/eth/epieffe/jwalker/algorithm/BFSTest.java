@@ -1,7 +1,7 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Edge;
+import eth.epieffe.jwalker.Graph;
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.gridpathfinding.GridCell;
 import eth.epieffe.jwalker.gridpathfinding.GridPathFindingProblem;
@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BFSTest {
 
     public static class TestCase {
-        public final Problem<GridCell> problem;
+        public final Graph<GridCell> graph;
         public final GridCell startCell;
         public final double totalCost;
 
-        public TestCase(Problem<GridCell> problem, GridCell startCell, double totalCost) {
-            this.problem = problem;
+        public TestCase(Graph<GridCell> graph, GridCell startCell, double totalCost) {
+            this.graph = graph;
             this.startCell = startCell;
             this.totalCost = totalCost;
         }
@@ -31,9 +31,9 @@ public class BFSTest {
     @ParameterizedTest
     @MethodSource("gridPathfindingProvider")
     public void testGridPathfinding(TestCase test) {
-        Visit<GridCell> visit = new BFS<>(test.problem);
-        List<Move<GridCell>> path = visit.run(test.startCell);
-        assertValidPath(test.problem, test.startCell, path);
+        Visit<GridCell> visit = new BFS<>(test.graph);
+        List<Edge<GridCell>> path = visit.run(test.startCell);
+        assertValidPath(test.graph, test.startCell, path);
         assertEquals(test.totalCost, path.size());
     }
 

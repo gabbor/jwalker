@@ -1,9 +1,9 @@
 package eth.epieffe.jwalker.npuzzle;
 
+import eth.epieffe.jwalker.Edge;
+import eth.epieffe.jwalker.Graph;
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Visits;
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class NPuzzleExample {
             1, 15, 11, -1
     };
 
-    private static final Problem<NPuzzle> problem = new NPuzzleProblem();
+    private static final Graph<NPuzzle> GRAPH = new NPuzzleGraph();
 
     public static void main(String... args) {
         NPuzzle status = NPuzzle.newInstance(EXAMPLE_1);
@@ -40,21 +40,21 @@ public class NPuzzleExample {
     }
 
     public static void solveWithAStarManhattan(NPuzzle status, int approx) {
-        Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::manhattanDistance, approx);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.aStar(GRAPH, NPuzzleHeuristic::manhattanDistance, approx);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
     public static void solveWithBestFirstManhattan(NPuzzle status) {
-        Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::manhattanDistance);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.greedyBestFirst(GRAPH, NPuzzleHeuristic::manhattanDistance);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
     public static void solveWithBFSManhattan(NPuzzle status) {
-        Visit<NPuzzle> visit = Visits.bfs(problem);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.bfs(GRAPH);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
     public static void solveWithAStarOutOfPlace(NPuzzle status) {
@@ -62,24 +62,24 @@ public class NPuzzleExample {
     }
 
     public static void solveWithAStarOutOfPlace(NPuzzle status, int approx) {
-        Visit<NPuzzle> visit = Visits.aStar(problem, NPuzzleHeuristic::outOfPlace, approx);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.aStar(GRAPH, NPuzzleHeuristic::outOfPlace, approx);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
     public static void solveWithBestFirstOutOfPlace(NPuzzle status) {
-        Visit<NPuzzle> visit = Visits.greedyBestFirst(problem, NPuzzleHeuristic::outOfPlace);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.greedyBestFirst(GRAPH, NPuzzleHeuristic::outOfPlace);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
     public static void solveWithBFSOutOfPlace(NPuzzle status) {
-        Visit<NPuzzle> visit = Visits.bfs(problem);
-        List<Move<NPuzzle>> moves = visit.run(status);
-        printMoves(moves);
+        Visit<NPuzzle> visit = Visits.bfs(GRAPH);
+        List<Edge<NPuzzle>> edges = visit.run(status);
+        printMoves(edges);
     }
 
-    private static void printMoves(List<Move<NPuzzle>> moves) {
-        moves.forEach(s -> System.out.println(s.move));
+    private static void printMoves(List<Edge<NPuzzle>> edges) {
+        edges.forEach(s -> System.out.println(s.label));
     }
 }

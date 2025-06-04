@@ -1,7 +1,7 @@
 package eth.epieffe.jwalker.nqueens;
 
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Edge;
+import eth.epieffe.jwalker.Graph;
 import eth.epieffe.jwalker.LocalSearch;
 import eth.epieffe.jwalker.LocalSearches;
 import eth.epieffe.jwalker.Visit;
@@ -35,22 +35,22 @@ public class NQueensExample {
     }
 
     public static void solveWithSteepestDescentSearch(NQueens status, int maxSides) {
-        Problem<NQueens> problem = new NQueensProblem();
+        Graph<NQueens> graph = new NQueensGraph();
         final Heuristic<NQueens> heuristic = NQueensHeuristic::numThreats;
-        final LocalSearch<NQueens> search = LocalSearches.steepestDescent(problem, heuristic, maxSides);
+        final LocalSearch<NQueens> search = LocalSearches.steepestDescent(graph, heuristic, maxSides);
         NQueens sol = search.run(status);
         System.out.println(sol);
-        System.out.println("is solved: " + problem.isSolved(sol));
+        System.out.println("is solved: " + graph.isTarget(sol));
         System.out.println("conflicts: " + heuristic.eval(sol));
     }
 
     public static void solveWithBestFirstVisit(NQueens status) {
-        Problem<NQueens> problem = new NQueensProblem();
-        final Visit<NQueens> visit = Visits.greedyBestFirst(problem, NQueensHeuristic::numThreats);
-        List<Move<NQueens>> moveList = visit.run(status);
+        Graph<NQueens> graph = new NQueensGraph();
+        final Visit<NQueens> visit = Visits.greedyBestFirst(graph, NQueensHeuristic::numThreats);
+        List<Edge<NQueens>> edgeList = visit.run(status);
         // moveList.forEach(s -> System.out.println(s.move));
-        NQueens sol = moveList.get(moveList.size() - 1).status;
+        NQueens sol = edgeList.get(edgeList.size() - 1).destination;
         System.out.println(sol);
-        System.out.println("is solved: " + problem.isSolved(sol));
+        System.out.println("is solved: " + graph.isTarget(sol));
     }
 }

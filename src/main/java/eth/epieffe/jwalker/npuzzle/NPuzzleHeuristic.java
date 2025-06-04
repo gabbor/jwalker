@@ -8,17 +8,17 @@ public class NPuzzleHeuristic {
      */
     public static int manhattanDistance(NPuzzle status) {
         int h = 0;
-        for (byte i = 0; i < status.getLength(); i++) {
-            for (byte j = 0; j < status.getLength(); j++) {
-                int val = status.getCell(i, j);
+        for (byte i = 0; i < status.size(); i++) {
+            for (byte j = 0; j < status.size(); j++) {
+                int val = status.cell(i, j);
                 if (val <= 0) {
-                    int length = status.getLength();
+                    int length = status.size();
                     val = length * length;
                 }
                 int properJ = val;
                 int properI = 0;
-                while (properJ > status.getLength()) {
-                    properJ -= status.getLength();
+                while (properJ > status.size()) {
+                    properJ -= status.size();
                     properI++;
                 }
                 properJ--;
@@ -34,13 +34,13 @@ public class NPuzzleHeuristic {
      */
     public static int outOfPlace(NPuzzle status) {
         int h = 0;
-        for (byte i = 0; i < status.getLength(); i++) {
-            for (byte j = 0; j < status.getLength(); j++) {
-                if (i == status.getLength() - 1 && j == status.getLength() - 1) {
-                    if (status.getCell(i, j) > 0) {
+        for (byte i = 0; i < status.size(); i++) {
+            for (byte j = 0; j < status.size(); j++) {
+                if (i == status.size() - 1 && j == status.size() - 1) {
+                    if (status.cell(i, j) > 0) {
                         h++;
                     }
-                } else if (status.getCell(i, j) != status.getLength() * i + j + 1) {
+                } else if (status.cell(i, j) != status.size() * i + j + 1) {
                     h++;
                 }
             }

@@ -1,13 +1,13 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Edge;
 
-class Node<T> {
-    protected Node<T> parent;
-    protected Move<T> move;
+class Node<N> {
+    protected Node<N> parent;
+    protected Edge<N> edge;
 
-    Node(Node<T> parent, Move<T> move) {
+    Node(Node<N> parent, Edge<N> edge) {
         this.parent = parent;
-        this.move = move;
+        this.edge = edge;
     }
 }

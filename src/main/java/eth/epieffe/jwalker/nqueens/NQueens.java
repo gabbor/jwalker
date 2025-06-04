@@ -1,6 +1,6 @@
 package eth.epieffe.jwalker.nqueens;
 
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Graph;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class NQueens {
 
-    public static final Problem<NQueens> PROBLEM = new NQueensProblem();
+    public static final Graph<NQueens> GRAPH = new NQueensGraph();
 
     private static final Random random = new Random();
 
@@ -49,35 +49,16 @@ public class NQueens {
     }
 
     /**
-     * Ritorna il numero di minaccie in questa configurazione.
-     * nb: si tratta di un'euristica consistente!
-     */
-    public int nThreats() {
-        int h = 0;
-        for (int col = 0; col < posArray.length; col++) {
-            int colVal = posArray[col];
-            for (int i = col + 1; i < posArray.length; i++) {
-                int val = posArray[i];
-                int dist = i - col;
-                if (val == colVal || val == colVal - dist || val == colVal + dist) {
-                    h++;
-                }
-            }
-        }
-        return h;
-    }
-
-    /**
      * Ritorna la posizione della regina nella colonna col.
      */
-    public int getPos(int col) {
+    public int row(int col) {
         return posArray[col];
     }
 
     /**
      * Ritorna la larghezza della scacchiera.
      */
-    public int getLength() {
+    public int size() {
         return posArray.length;
     }
 

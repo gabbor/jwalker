@@ -1,6 +1,6 @@
 package eth.epieffe.jwalker.npuzzle;
 
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Graph;
 
 import java.util.Arrays;
 
@@ -12,19 +12,19 @@ import java.util.Arrays;
  */
 public class NPuzzle {
 
-    public static final Problem<NPuzzle> PROBLEM = new NPuzzleProblem();
+    public static final Graph<NPuzzle> GRAPH = new NPuzzleGraph();
 
-    final byte length;
+    final byte size;
     final byte emptyIndex;
     final byte[] table;
 
     public static NPuzzle newInstance(int... nums) {
+        if (nums.length > Byte.MAX_VALUE) {
+            throw new IllegalArgumentException("Size is too large");
+        }
         int length = (int) Math.sqrt(nums.length);
         if (length == 0 || length * length != nums.length) {
             throw new IllegalArgumentException("Invalid size");
-        }
-        if (length > Byte.MAX_VALUE) {
-            throw new IllegalArgumentException("Size is too large");
         }
         // Find empty cell index
         int emptyIndex = -1;
@@ -61,31 +61,31 @@ public class NPuzzle {
 
     /**
      * @param table: array che rappresenta la configurazione.
-     * @param length: dimensione del lato del puzzle (es. 3 per un 3x3).
+     * @param size: dimensione del lato del puzzle (es. 3 per un 3x3).
      * @param emptyIndex: posizione della cella vuota.
      *           Si assume che la matrice rappresenti una configurazione valida
      *           e che emptyIndex sia valorizzato correttamente.
      */
-    NPuzzle(byte length, byte emptyIndex, byte[] table) {
-        this.length = length;
+    NPuzzle(byte size, byte emptyIndex, byte[] table) {
+        this.size = size;
         this.emptyIndex = emptyIndex;
         this.table = table;
     }
 
-    public byte getLength() {
-        return length;
+    public byte size() {
+        return size;
     }
 
-    public byte getCell(int row, int col) {
-        return table[row * length + col];
+    public byte cell(int row, int col) {
+        return table[row * size + col];
     }
 
-    public int getEmptyX() {
-        return emptyIndex % length;
+    public int emptyX() {
+        return emptyIndex % size;
     }
 
-    public int getEmptyY() {
-        return emptyIndex / length;
+    public int emptyY() {
+        return emptyIndex / size;
     }
 
     @Override

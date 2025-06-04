@@ -2,7 +2,7 @@ package eth.epieffe.jwalker.npuzzle;
 
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Visits;
-import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Edge;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,10 +24,10 @@ public class NPuzzleFromFileExample {
             System.out.println("Initial status:");
             System.out.println(status);
             System.out.println("--------------");
-            Visit<NPuzzle> visit = Visits.greedyBestFirst(new NPuzzleProblem(), NPuzzleHeuristic::manhattanDistance);
-            List<Move<NPuzzle>> moves = visit.run(status);
+            Visit<NPuzzle> visit = Visits.greedyBestFirst(new NPuzzleGraph(), NPuzzleHeuristic::manhattanDistance);
+            List<Edge<NPuzzle>> edges = visit.run(status);
             System.out.println("Move list:");
-            moves.forEach(s -> System.out.println(s.move));
+            edges.forEach(s -> System.out.println(s.label));
         } catch (FileNotFoundException e) {
             System.err.println("Invalid file path");
         } catch (IOException e) {

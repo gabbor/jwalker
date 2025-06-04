@@ -1,12 +1,12 @@
 package eth.epieffe.jwalker.gridpathfinding;
 
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Graph;
+import eth.epieffe.jwalker.Edge;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridPathFindingProblem implements Problem<GridCell> {
+public class GridPathFindingProblem implements Graph<GridCell> {
 
     private final byte[][] grid;
     private final int targetRow;
@@ -48,8 +48,8 @@ public class GridPathFindingProblem implements Problem<GridCell> {
     }
 
     @Override
-    public List<Move<GridCell>> getMoves(GridCell cell) {
-        List<Move<GridCell>> moves = new ArrayList<>(8);
+    public List<Edge<GridCell>> outgoingEdges(GridCell cell) {
+        List<Edge<GridCell>> edges = new ArrayList<>(8);
         int width = grid.length;
         int height = grid[0].length;
 
@@ -68,17 +68,17 @@ public class GridPathFindingProblem implements Problem<GridCell> {
                 byte cost = grid[newRow][newCol];
                 if (cost > 0) {
                     GridCell newCell = new GridCell(newRow, newCol);
-                    moves.add(new Move<>(moveNames[i], cost, newCell));
+                    edges.add(new Edge<>(moveNames[i], cost, newCell));
                 }
             }
         }
 
-        return moves;
+        return edges;
     }
 
 
     @Override
-    public boolean isSolved(GridCell cell) {
+    public boolean isTarget(GridCell cell) {
         return cell.row == this.targetRow &&
                 cell.col == this.targetCol;
     }

@@ -8,12 +8,12 @@ public class NQueensHeuristic {
      */
     public static int numThreats(NQueens status) {
         int h = 0;
-        for (int col = 0; col < status.getLength(); col++) {
-            int colVal = status.getPos(col);
-            for (int i = col + 1; i < status.getLength(); i++) {
-                int val = status.getPos(i);
+        for (int col = 0; col < status.size(); col++) {
+            int row = status.row(col);
+            for (int i = col + 1; i < status.size(); i++) {
+                int row2 = status.row(i);
                 int dist = i - col;
-                if (val == colVal || val == colVal - dist || val == colVal + dist) {
+                if (row2 == row || row2 == row - dist || row2 == row + dist) {
                     h++;
                 }
             }

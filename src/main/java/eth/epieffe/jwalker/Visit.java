@@ -4,57 +4,60 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * A pathfinding algorithm that traverses the graph defined by a {@link Problem}
- * to find a path from an initial status to a status that is a solution for the
- * problem.<p>
+ * A pathfinding algorithm that traverses a {@link Graph} to find a path from a
+ * provided node to a target node.<p>
  *
  * Optionally, users can provide a {@link Consumer} that will be called on each
- * explored status when it is visited.<p>
+ * explored node when it is visited.<p>
  *
  * The {@link Visits} class provides factory methods for various pathfinding
  * algorithms such as Dijkstra, A*, Best-first and Breadth-first search.
  *
- * @param <T> the type of the statuses of the underlying {@link Problem}
+ * @param <N> the type of nodes in the graph traversed by this visit
  *
- * @see Problem
- * @see Move
+ * @see Graph
+ * @see Edge
  * @see Visits
  * @author  Epifanio Ferrari
  */
-public interface Visit<T> {
+public interface Visit<N> {
 
     /**
-     * Traverses the graph defined by the underlying {@link Problem}
-     * to find a path from the specified status to a status that is
-     * a solution for the problem.
+     * Traverses the underlying {@link Graph} and returns a list of
+     * edges that bring from the specified node to a target node.<p>
      *
-     * @param status a problem status
-     * @return a list of moves that bring from the specified status to a
-     * solution, or null if no valid path is found
-     * @throws NullPointerException if status is {@code null}
+     * If no valid path is found returns {@code null}.
+     *
+     * @param node a node in the underlying graph
+     * @return a path from the specified node to a target node, or
+     * {@code null} if no valid path is found
+     * @throws NullPointerException if node is {@code null}
      */
-    default List<Move<T>> run(T status) {
-        return run(status, null);
+    default List<Edge<N>> run(N node) {
+        return run(node, null);
     }
 
     /**
-     * Traverses the graph defined by the underlying {@link Problem}
-     * to find a path from the specified status to a status that is
-     * a solution for the problem.
+     * Traverses the underlying {@link Graph} and returns a list of
+     * edges that bring from the specified node to a target node.<p>
      *
-     * @param status a problem status
-     * @param onVisit a callback that will be executed on each explored
-     * status when it is visited
-     * @return a list of moves that bring from the specified status to a
-     * solution, or null if no valid path is found
-     * @throws NullPointerException if status is {@code null}
+     * If no valid path is found returns {@code null}. <p>
+     *
+     * If a {@link Consumer} is provided, it will be executed on each
+     * explored node when it is visited.
+     *
+     * @param node a node in the underlying graph
+     * @param onVisit a callback that will be executed on each visited node
+     * @return a path from the specified node to a target node, or
+     * {@code null} if no valid path is found
+     * @throws NullPointerException if node is {@code null}
      */
-    List<Move<T>> run(T status, Consumer<T> onVisit);
+    List<Edge<N>> run(N node, Consumer<N> onVisit);
 
     /**
-     * Returns the underlying problem of this {@code Visit}.
+     * Returns the {@link Graph} that is traversed by this visit.
      *
-     * @return the underlying problem of this visit
+     * @return the graph that is traversed by this visit
      */
-    Problem<T> getProblem();
+    Graph<N> getGraph();
 }

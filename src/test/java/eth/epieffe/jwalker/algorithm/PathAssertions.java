@@ -1,7 +1,7 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Edge;
+import eth.epieffe.jwalker.Graph;
 
 import java.util.List;
 
@@ -10,15 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PathAssertions {
 
-    public static <T> void assertValidPath(Problem<T> problem, T start, List<Move<T>> path) {
+    public static <T> void assertValidPath(Graph<T> graph, T start, List<Edge<T>> path) {
         assertNotNull(path);
 
         T current = start;
-        for (Move<T> move : path) {
-            boolean valid = problem.getMoves(current).contains(move);
+        for (Edge<T> edge : path) {
+            boolean valid = graph.outgoingEdges(current).contains(edge);
             assertTrue(valid, "Invalid move");
-            current = move.status;
+            current = edge.destination;
         }
-        assertTrue(problem.isSolved(current), "Invalid solution");
+        assertTrue(graph.isTarget(current), "Invalid solution");
     }
 }

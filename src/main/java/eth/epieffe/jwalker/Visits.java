@@ -9,23 +9,23 @@ import eth.epieffe.jwalker.algorithm.GreedyBestFirst;
  */
 public class Visits {
 
-    public static <T> Visit<T> aStar(Problem<T> problem, Heuristic<T> heuristic) {
-        return new AStar<>(problem, heuristic);
+    public static <N> Visit<N> aStar(Graph<N> graph, Heuristic<N> heuristic) {
+        return new AStar<>(graph, heuristic);
     }
 
-    public static <T> Visit<T> aStar(Problem<T> problem, Heuristic<T> heuristic, int hmul) {
-        return new AStar<>(problem, heuristic, hmul);
+    public static <N> Visit<N> aStar(Graph<N> graph, Heuristic<N> heuristic, int hmul) {
+        return new AStar<>(graph, heuristic, hmul);
     }
 
-    public static <T> Visit<T> greedyBestFirst(Problem<T> problem, Heuristic<T> heuristic) {
-        return new GreedyBestFirst<>(problem, heuristic);
+    public static <N> Visit<N> greedyBestFirst(Graph<N> graph, Heuristic<N> heuristic) {
+        return new GreedyBestFirst<>(graph, heuristic);
     }
 
-    public static <T> Visit<T> bfs(Problem<T> problem) {
-        return new BFS<>(problem);
+    public static <N> Visit<N> bfs(Graph<N> graph) {
+        return new BFS<>(graph);
     }
 
-    public static <T> Visit<T> dijkstra(Problem<T> problem) {
-        return new AStar<>(problem, c -> 0);
+    public static <N> Visit<N> dijkstra(Graph<N> graph) {
+        return new AStar<>(graph, c -> 0);
     }
 }

@@ -1,6 +1,6 @@
 package eth.epieffe.jwalker.gridpathfinding;
 
-import eth.epieffe.jwalker.Move;
+import eth.epieffe.jwalker.Edge;
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Visits;
 
@@ -42,14 +42,14 @@ public class GridPathFindingExample {
     public static void solveWithDijkstra(GridPathFindingProblem problem) {
         Visit<GridCell> visit = Visits.dijkstra(problem);
         GridCell start = GridCell.newInstance(problem, 4, 2);
-        List<Move<GridCell>> moves = visit.run(start);
-        printMoves(problem, start, moves);
+        List<Edge<GridCell>> edges = visit.run(start);
+        printMoves(problem, start, edges);
     }
 
-    private static void printMoves(GridPathFindingProblem problem, GridCell start, List<Move<GridCell>> moves) {
-        System.out.println("Moves length: " + moves.size());
+    private static void printMoves(GridPathFindingProblem problem, GridCell start, List<Edge<GridCell>> edges) {
+        System.out.println("Moves length: " + edges.size());
         System.out.println(problem.prettyString(start));
-        moves.forEach(m -> System.out.println(problem.prettyString(m.status)));
+        edges.forEach(m -> System.out.println(problem.prettyString(m.destination)));
     }
 
 }

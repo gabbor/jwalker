@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class SteepestDescentTest {
 
     private final LocalSearch<NQueens> search = new SteepestDescent<>(
-            NQueens.PROBLEM,
+            NQueens.GRAPH,
             NQueensHeuristic::numThreats,
             500);
 
@@ -21,10 +21,10 @@ public class SteepestDescentTest {
     @MethodSource("nQueens8Provider")
     public void test8QueensWithNThreatsHeuristic(NQueens start) {
         NQueens sol = search.run(start);
-        boolean isSolved = NQueens.PROBLEM.isSolved(sol);
+        boolean isSolved = NQueens.GRAPH.isTarget(sol);
         // Retry up to 5 times
         for (int retry = 0; !isSolved && retry < 5; ++retry) {
-            isSolved = NQueens.PROBLEM.isSolved(sol);
+            isSolved = NQueens.GRAPH.isTarget(sol);
         }
         assertTrue(isSolved);
     }
@@ -33,10 +33,10 @@ public class SteepestDescentTest {
     @MethodSource("nQueens50Provider")
     public void test50QueensWithNThreatsHeuristic(NQueens start) {
         NQueens sol = search.run(start);
-        boolean isSolved = NQueens.PROBLEM.isSolved(sol);
+        boolean isSolved = NQueens.GRAPH.isTarget(sol);
         // Retry up to 10 times
         for (int retry = 0; !isSolved && retry < 10; ++retry) {
-            isSolved = NQueens.PROBLEM.isSolved(sol);
+            isSolved = NQueens.GRAPH.isTarget(sol);
         }
         assertTrue(isSolved);
     }

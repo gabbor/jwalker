@@ -1,9 +1,9 @@
 package eth.epieffe.jwalker.algorithm;
 
+import eth.epieffe.jwalker.Edge;
+import eth.epieffe.jwalker.Graph;
 import eth.epieffe.jwalker.LocalSearch;
 import eth.epieffe.jwalker.Heuristic;
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,42 +11,42 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class SteepestDescent<T> implements LocalSearch<T> {
+public class SteepestDescent<N> implements LocalSearch<N> {
 
     private final Random random = new Random();
 
-    private final Problem<T> problem;
+    private final Graph<N> graph;
 
-    private final Heuristic<T> heuristic;
+    private final Heuristic<N> heuristic;
 
     private final int maxSides;
 
-    public SteepestDescent(Problem<T> problem, Heuristic<T> heuristic, int maxSides) {
-        Objects.requireNonNull(problem);
+    public SteepestDescent(Graph<N> graph, Heuristic<N> heuristic, int maxSides) {
+        Objects.requireNonNull(graph);
         Objects.requireNonNull(heuristic);
         if (maxSides < 0) {
             throw new IllegalArgumentException("Argument maxSides must not be negative");
         }
-        this.problem = problem;
+        this.graph = graph;
         this.heuristic = heuristic;
         this.maxSides = maxSides;
     }
 
     @Override
-    public T run(T status, Consumer<T> onVisit) {
-        T sol = null;
-        T localBest = status;
-        double localBestH = heuristic.eval(status);
+    public N run(N node, Consumer<N> onVisit) {
+        N sol = null;
+        N localBest = node;
+        double localBestH = heuristic.eval(node);
         int countSides = 0;
         while (sol == null) {
             if (onVisit != null) {
                 onVisit.accept(localBest);
             }
             double oldBestH = localBestH;
-            List<Move<T>> moveList = problem.getMoves(localBest);
-            List<T> bestMoveList = new ArrayList<>();
-            for (Move<T> m : moveList) {
-                T newProblem = m.status;
+            List<Edge<N>> edgeList = graph.outgoingEdges(localBest);
+            List<N> bestMoveList = new ArrayList<>();
+            for (Edge<N> m : edgeList) {
+                N newProblem = m.destination;
                 double newH = heuristic.eval(newProblem);
                 if (newH <= localBestH) {
                     if (newH < localBestH) {

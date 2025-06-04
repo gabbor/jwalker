@@ -1,7 +1,7 @@
 package eth.epieffe.jwalker.algorithm;
 
-import eth.epieffe.jwalker.Move;
-import eth.epieffe.jwalker.Problem;
+import eth.epieffe.jwalker.Graph;
+import eth.epieffe.jwalker.Edge;
 import eth.epieffe.jwalker.Visit;
 
 import java.util.ArrayDeque;
@@ -14,35 +14,35 @@ import java.util.function.Consumer;
 
 import static eth.epieffe.jwalker.algorithm.Util.buildPath;
 
-public class BFS<T> implements Visit<T> {
+public class BFS<N> implements Visit<N> {
 
-    private final Problem<T> problem;
+    private final Graph<N> graph;
 
-    public BFS(Problem<T> problem) {
-        Objects.requireNonNull(problem);
-        this.problem = problem;
+    public BFS(Graph<N> graph) {
+        Objects.requireNonNull(graph);
+        this.graph = graph;
     }
 
     @Override
-    public List<Move<T>> run(T start, Consumer<T> onVisit) {
-        Queue<T> frontier = new ArrayDeque<>();
-        Map<T, Node<T>> nodes = new HashMap<>();
+    public List<Edge<N>> run(N start, Consumer<N> onVisit) {
+        Queue<N> frontier = new ArrayDeque<>();
+        Map<N, Node<N>> nodes = new HashMap<>();
         frontier.add(start);
         nodes.put(start, new Node<>(null, null));
         while (!frontier.isEmpty()) {
-            T current = frontier.poll();
-            Node<T> currentNode = nodes.get(current);
+            N current = frontier.poll();
+            Node<N> currentNode = nodes.get(current);
             if (onVisit != null) {
                 onVisit.accept(current);
             }
-            if (problem.isSolved(current)) {
+            if (graph.isTarget(current)) {
                 return buildPath(currentNode);
             }
-            for (Move<T> move : problem.getMoves(current)) {
-                Node<T> node = nodes.get(move.status);
+            for (Edge<N> edge : graph.outgoingEdges(current)) {
+                Node<N> node = nodes.get(edge.destination);
                 if (node == null) {
-                    frontier.add(move.status);
-                    nodes.put(move.status, new Node<>(currentNode, move));
+                    frontier.add(edge.destination);
+                    nodes.put(edge.destination, new Node<>(currentNode, edge));
                 }
             }
         }
@@ -51,7 +51,7 @@ public class BFS<T> implements Visit<T> {
     }
 
     @Override
-    public Problem<T> getProblem() {
-        return problem;
+    public Graph<N> getGraph() {
+        return graph;
     }
 }
