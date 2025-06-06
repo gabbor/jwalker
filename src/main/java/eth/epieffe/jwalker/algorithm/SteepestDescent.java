@@ -22,13 +22,11 @@ public class SteepestDescent<N> implements LocalSearch<N> {
     private final int maxSides;
 
     public SteepestDescent(Graph<N> graph, Heuristic<N> heuristic, int maxSides) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(heuristic);
         if (maxSides < 0) {
             throw new IllegalArgumentException("Argument maxSides must not be negative");
         }
-        this.graph = graph;
-        this.heuristic = heuristic;
+        this.graph = Objects.requireNonNull(graph);
+        this.heuristic = Objects.requireNonNull(heuristic);
         this.maxSides = maxSides;
     }
 
@@ -43,17 +41,16 @@ public class SteepestDescent<N> implements LocalSearch<N> {
                 onVisit.accept(localBest);
             }
             double oldBestH = localBestH;
-            List<Edge<N>> edgeList = graph.outgoingEdges(localBest);
+            List<Edge<N>> edges = graph.outgoingEdges(localBest);
             List<N> bestMoveList = new ArrayList<>();
-            for (Edge<N> m : edgeList) {
-                N newProblem = m.destination;
-                double newH = heuristic.eval(newProblem);
+            for (Edge<N> edge : edges) {
+                double newH = heuristic.eval(edge.destination);
                 if (newH <= localBestH) {
                     if (newH < localBestH) {
                         localBestH = newH;
                         bestMoveList.clear();
                     }
-                    bestMoveList.add(newProblem);
+                    bestMoveList.add(edge.destination);
                 }
             }
             if (!bestMoveList.isEmpty()) {

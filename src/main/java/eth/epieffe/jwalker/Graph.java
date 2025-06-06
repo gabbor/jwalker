@@ -3,9 +3,9 @@ package eth.epieffe.jwalker;
 import java.util.List;
 
 /**
- * A graph that can be traversed by a search algorithm such as A* or Dijkstra.
- * Methods are provided to retrieve the outgoing edges of a specified node, and
- * to check if a specified node is a target.<p>
+ * A graph that can be traversed by a search algorithm such as <i>A*</i> or
+ * <i>Dijkstra</i>. Methods are provided to retrieve the outgoing edges of a
+ * specified node, and to check if a specified node is a target.<p>
  *
  * A {@code Graph} describes a search problem, and can be traversed with a
  * {@link Visit} or a {@link LocalSearch}.<p>
@@ -18,7 +18,7 @@ import java.util.List;
  * @see Visit
  * @see LocalSearch
  * @see Edge
- * @author  Epifanio Ferrari
+ * @author Epifanio Ferrari
  */
 public interface Graph<N> {
 

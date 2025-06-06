@@ -21,10 +21,8 @@ public class GreedyBestFirst<N> implements Visit<N> {
     private final Heuristic<N> heuristic;
 
     public GreedyBestFirst(Graph<N> graph, Heuristic<N> heuristic) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(heuristic);
-        this.graph = graph;
-        this.heuristic = heuristic;
+        this.graph = Objects.requireNonNull(graph);
+        this.heuristic = Objects.requireNonNull(heuristic);
     }
 
     @Override

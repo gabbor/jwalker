@@ -8,8 +8,8 @@ package eth.epieffe.jwalker;
  * of its constituent edges.<p>
  *
  * Although a heuristic may be inaccurate, it should be quick to evaluate, and it is used
- * by informed search algorithms, such as A* or Best-first Search, to decide which nodes
- * to explore with a higher priority.<p>
+ * by informed search algorithms, such as <i>A*</i> or <i>Best-first Search</i>, to decide
+ * which nodes to explore with a higher priority.<p>
  *
  * A heuristic estimate must never be less than zero. If the provided node is a target
  * node, the estimate for that node should be zero.
@@ -19,14 +19,14 @@ package eth.epieffe.jwalker;
  * to the estimate for any neighbour of the provided node, plus the cost of reaching that
  * neighbour from the provided node.<p>
  *
- * Consistency is a desirable property for heuristics. When the A* algorithm uses a
+ * Consistency is a desirable property for heuristics. When the <i>A*</i> algorithm uses a
  * consistent heuristic, it is guaranteed to always return a path with the lowest cost possible.
  *
  * @param <N> the type of graph nodes this heuristic evaluates
  *
  * @see Graph
  * @see Visits#aStar(Graph, Heuristic)
- * @author  Epifanio Ferrari
+ * @author Epifanio Ferrari
  */
 @FunctionalInterface
 public interface Heuristic<N> {

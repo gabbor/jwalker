@@ -20,21 +20,19 @@ public class AStar<N> implements Visit<N> {
 
     private final Heuristic<N> heuristic;
 
-    private final double hmul;
+    private final double hMul;
 
     public AStar(Graph<N> graph, Heuristic<N> heuristic) {
         this(graph, heuristic, 1);
     }
 
-    public AStar(Graph<N> graph, Heuristic<N> heuristic, double hmul) {
-        Objects.requireNonNull(graph);
-        Objects.requireNonNull(heuristic);
-        if (hmul < 1) {
+    public AStar(Graph<N> graph, Heuristic<N> heuristic, double hMul) {
+        if (hMul < 1) {
             throw new IllegalArgumentException("Argument hmul must be >= 1");
         }
-        this.graph = graph;
-        this.heuristic = heuristic;
-        this.hmul = hmul;
+        this.graph = Objects.requireNonNull(graph);
+        this.heuristic = Objects.requireNonNull(heuristic);
+        this.hMul = hMul;
     }
 
     @Override
@@ -60,12 +58,12 @@ public class AStar<N> implements Visit<N> {
                 ANode<N> node = nodes.get(edge.destination);
                 if (node == null) {
                     double h = heuristic.eval(edge.destination);
-                    double f = g + (h * hmul);
+                    double f = g + (h * hMul);
                     FibonacciHeap.Handle<N> handle = openSet.insert(f, edge.destination);
                     node = new ANode<>(currentNode, edge, handle, g, h);
                     nodes.put(edge.destination, node);
                 } else if (!node.isExpanded() && g < node.g) {
-                    double f = g + (node.h * hmul);
+                    double f = g + (node.h * hMul);
                     node.g = g;
                     node.parent = currentNode;
                     node.edge = edge;

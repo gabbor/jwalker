@@ -19,8 +19,7 @@ public class BFS<N> implements Visit<N> {
     private final Graph<N> graph;
 
     public BFS(Graph<N> graph) {
-        Objects.requireNonNull(graph);
-        this.graph = graph;
+        this.graph = Objects.requireNonNull(graph);
     }
 
     @Override
