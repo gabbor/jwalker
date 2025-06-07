@@ -50,9 +50,9 @@ public class BFSTest {
                 {1, 1, 1, 0, 0, 0, 0, 0, 1, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         };
-        var problem1 = GridPathFindingProblem.newInstance(grid1, 9, 6);
-        var start1 = GridCell.newInstance(problem1, 4, 2);
-        var test1 = new TestCase(problem1, start1, 8);
+        GridPathFindingProblem problem1 = GridPathFindingProblem.newInstance(grid1, 9, 6);
+        GridCell start1 = GridCell.newInstance(problem1, 4, 2);
+        TestCase test1 = new TestCase(problem1, start1, 8);
 
         return Stream.of(test1);
     }
