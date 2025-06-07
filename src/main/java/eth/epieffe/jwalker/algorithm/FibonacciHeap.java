@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eth.epieffe.jwalker.util;
+package eth.epieffe.jwalker.algorithm;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -42,7 +42,7 @@ import java.util.NoSuchElementException;
  *
  * @author Dimitrios Michail
  */
-public class FibonacciHeap<V> implements Serializable {
+class FibonacciHeap<V> implements Serializable {
 
     /**
      * Size of consolidation auxiliary array. Computed for number of elements

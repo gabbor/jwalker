@@ -4,7 +4,6 @@ import eth.epieffe.jwalker.Edge;
 import eth.epieffe.jwalker.Graph;
 import eth.epieffe.jwalker.Visit;
 import eth.epieffe.jwalker.Heuristic;
-import eth.epieffe.jwalker.util.FibonacciHeap;
 
 import java.util.HashMap;
 import java.util.List;
