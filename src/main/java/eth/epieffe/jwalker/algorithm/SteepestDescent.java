@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class SteepestDescent<N> implements LocalSearch<N> {
 
@@ -17,20 +18,37 @@ public class SteepestDescent<N> implements LocalSearch<N> {
 
     private final Graph<N> graph;
 
+    private final Supplier<N> randomNodeSupplier;
+
     private final Heuristic<N> heuristic;
 
     private final int maxSides;
 
-    public SteepestDescent(Graph<N> graph, Heuristic<N> heuristic, int maxSides) {
+    public SteepestDescent(
+            Graph<N> graph,
+            Supplier<N> randomNodeSupplier,
+            Heuristic<N> heuristic,
+            int maxSides
+    ) {
         if (maxSides < 0) {
             throw new IllegalArgumentException("Argument maxSides must not be negative");
         }
         this.graph = Objects.requireNonNull(graph);
+        this.randomNodeSupplier = randomNodeSupplier;
         this.heuristic = Objects.requireNonNull(heuristic);
         this.maxSides = maxSides;
     }
 
     @Override
+    public N run(Consumer<N> onVisit) {
+        N start = randomNodeSupplier.get();
+        return run(start, onVisit);
+    }
+
+    public N run(N node) {
+        return run(node, null);
+    }
+
     public N run(N node, Consumer<N> onVisit) {
         N sol = null;
         N localBest = node;
@@ -67,5 +85,15 @@ public class SteepestDescent<N> implements LocalSearch<N> {
             }
         }
         return sol;
+    }
+
+    @Override
+    public Graph<N> getGraph() {
+        return graph;
+    }
+
+    @Override
+    public Heuristic<N> getHeuristic() {
+        return heuristic;
     }
 }

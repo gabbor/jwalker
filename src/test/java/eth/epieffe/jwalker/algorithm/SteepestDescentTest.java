@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SteepestDescentTest {
 
-    private final LocalSearch<NQueens> search = new SteepestDescent<>(
+    private final SteepestDescent<NQueens> search = new SteepestDescent<>(
             NQueens.GRAPH,
+            null,
             NQueensHeuristic::numThreats,
             500);
 

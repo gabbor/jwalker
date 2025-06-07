@@ -9,11 +9,12 @@ import eth.epieffe.jwalker.Visits;
 import eth.epieffe.jwalker.Heuristic;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class NQueensExample {
 
     public static void main(String... args) {
-        int size = 100;
+        int size = 8;
         int maxSides = 100;
         if (args.length > 0) {
             size = Integer.parseInt(args[0]);
@@ -21,8 +22,7 @@ public class NQueensExample {
                 maxSides = Integer.parseInt(args[1]);
             }
         }
-        NQueens status = NQueens.newRandomInstance(size);
-        solveWithSteepestDescentSearch(status, maxSides);
+        solveWithSteepestDescentSearch(size, maxSides);
     }
 
     public static void solveWithSteepestDescentSearch(int size) {
@@ -30,18 +30,14 @@ public class NQueensExample {
     }
 
     public static void solveWithSteepestDescentSearch(int size, int maxSides) {
-        NQueens status = NQueens.newRandomInstance(size);
-        solveWithSteepestDescentSearch(status, maxSides);
-    }
-
-    public static void solveWithSteepestDescentSearch(NQueens status, int maxSides) {
-        Graph<NQueens> graph = new NQueensGraph();
-        final Heuristic<NQueens> heuristic = NQueensHeuristic::numThreats;
-        final LocalSearch<NQueens> search = LocalSearches.steepestDescent(graph, heuristic, maxSides);
-        NQueens sol = search.run(status);
+        Graph<NQueens> graph = NQueens.GRAPH;
+        Heuristic<NQueens> heuristic = NQueensHeuristic::numThreats;
+        Supplier<NQueens> randomNodeSupplier = () -> NQueens.newRandomInstance(size);
+        LocalSearch<NQueens> search = LocalSearches.steepestDescent(graph, randomNodeSupplier, heuristic, maxSides);
+        NQueens sol = search.run();
         System.out.println(sol);
         System.out.println("is solved: " + graph.isTarget(sol));
-        System.out.println("conflicts: " + heuristic.eval(sol));
+        System.out.println("conflicts: " + NQueensHeuristic.numThreats(sol));
     }
 
     public static void solveWithBestFirstVisit(NQueens status) {
