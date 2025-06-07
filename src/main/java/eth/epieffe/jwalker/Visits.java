@@ -11,7 +11,9 @@ import eth.epieffe.jwalker.algorithm.GreedyBestFirst;
  * @see Graph
  * @author Epifanio Ferrari
  */
-public class Visits {
+public final class Visits {
+
+    private Visits() {}
 
     /**
      * Creates a {@link Visit} that implements the <i>A*</i> algorithm.<p>

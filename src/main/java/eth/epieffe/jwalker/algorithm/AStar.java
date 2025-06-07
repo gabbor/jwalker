@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 import static eth.epieffe.jwalker.algorithm.Util.buildPath;
 
-public class AStar<N> implements Visit<N> {
+public final class AStar<N> implements Visit<N> {
 
     private final Graph<N> graph;
 
@@ -28,7 +28,7 @@ public class AStar<N> implements Visit<N> {
 
     public AStar(Graph<N> graph, Heuristic<N> heuristic, double hMul) {
         if (hMul < 1) {
-            throw new IllegalArgumentException("Argument hmul must be >= 1");
+            throw new IllegalArgumentException("Argument hMul must be >= 1");
         }
         this.graph = Objects.requireNonNull(graph);
         this.heuristic = Objects.requireNonNull(heuristic);

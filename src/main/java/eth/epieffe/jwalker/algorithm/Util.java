@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class Util {
+final class Util {
 
-    private Util() {/* Must not be instantiated */}
+    private Util() {}
 
-    protected static <N> List<Edge<N>> buildPath(Node<N> node) {
+    static <N> List<Edge<N>> buildPath(Node<N> node) {
         List<Edge<N>> edges = new ArrayList<>();
         while (node.parent != null) {
             edges.add(node.edge);

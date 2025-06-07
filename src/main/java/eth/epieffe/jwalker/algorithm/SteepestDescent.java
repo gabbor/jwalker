@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class SteepestDescent<N> implements LocalSearch<N> {
+public final class SteepestDescent<N> implements LocalSearch<N> {
 
     private final Random random = new Random();
 

@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 
 import static eth.epieffe.jwalker.algorithm.Util.buildPath;
 
-public class BFS<N> implements Visit<N> {
+public final class BFS<N> implements Visit<N> {
 
     private final Graph<N> graph;
 
