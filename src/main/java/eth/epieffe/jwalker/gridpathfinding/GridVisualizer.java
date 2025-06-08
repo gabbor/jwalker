@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.DropShadow;
@@ -72,6 +73,21 @@ public class GridVisualizer extends Application {
         colsField = new TextField("50");
         colsField.setOnAction(e -> createEmptyGrid());
 
+        Label speedLabel = new Label("Speed:");
+        speedLabel.setTextFill(Color.WHITE);
+
+        Slider speedSlider = new Slider(0.1, 6, 1.0);
+        speedSlider.setShowTickMarks(true);
+        speedSlider.setShowTickLabels(true);
+        speedSlider.setMajorTickUnit(1);
+        speedSlider.setBlockIncrement(0.1);
+        speedSlider.setShowTickMarks(false);
+        speedSlider.setShowTickLabels(false);
+
+        speedSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            timeline.setRate(newValue.doubleValue());
+        });
+
         Button clearGridButton = new Button("Clear Grid");
         clearGridButton.setOnAction(e -> createEmptyGrid());
 
@@ -109,6 +125,7 @@ public class GridVisualizer extends Application {
         controlPanel.getChildren().addAll(
                 algorithmToggle,
                 rowsLabel, rowsField, colsLabel, colsField,
+                speedLabel, speedSlider,
                 clearGridButton, randomGridButton, setPointsButton,
                 runButton, resetButton);
 
@@ -216,8 +233,8 @@ public class GridVisualizer extends Application {
             if (cell.row == startCell.row && cell.col == startCell.col) continue;
             if (cell.row == targetCell.row && cell.col == targetCell.col) continue;
 
-            KeyFrame frame = new KeyFrame(Duration.millis(10 * (i + 1)), e -> {
-                FillTransition ft = new FillTransition(Duration.millis(10), cells[cell.row][cell.col], Color.LIGHTGRAY, Color.GREY);
+            KeyFrame frame = new KeyFrame(Duration.millis(5 * (i + 1)), e -> {
+                FillTransition ft = new FillTransition(Duration.millis(5), cells[cell.row][cell.col], Color.LIGHTGRAY, Color.GREY);
                 transitions.add(ft);
                 ft.play();
             });
